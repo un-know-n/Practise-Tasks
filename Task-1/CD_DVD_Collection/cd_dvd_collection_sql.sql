@@ -23,17 +23,17 @@ USE `cd_dvd_collection`;
 CREATE TABLE IF NOT EXISTS `albums` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(150) NOT NULL DEFAULT '',
-  `release` timestamp NOT NULL,
+  `release` date NOT NULL,
   `tracks_count` int unsigned NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table cd_dvd_collection.albums: ~0 rows (approximately)
+-- Dumping data for table cd_dvd_collection.albums: ~3 rows (approximately)
 INSERT INTO `albums` (`id`, `name`, `release`, `tracks_count`) VALUES
-	(1, 'Back in Black', '2017-10-09 13:28:26', 13),
-	(2, 'The Bodyguard', '2018-06-09 13:28:45', 12),
-	(3, 'The Dark Side of the Moon', '2014-07-06 09:25:28', 25);
+	(1, 'Back in Black', '2017-10-09', 13),
+	(2, 'The Bodyguard', '2018-06-09', 12),
+	(3, 'The Dark Side of the Moon', '2014-07-06', 25);
 
 -- Dumping structure for table cd_dvd_collection.audio_genres
 CREATE TABLE IF NOT EXISTS `audio_genres` (
@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `audio_genres` (
   UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table cd_dvd_collection.audio_genres: ~0 rows (approximately)
+-- Dumping data for table cd_dvd_collection.audio_genres: ~4 rows (approximately)
 INSERT INTO `audio_genres` (`id`, `genre`) VALUES
 	(1, 'Rock'),
 	(2, 'Heavy metal'),
@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `audio_performers` (
   UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table cd_dvd_collection.audio_performers: ~0 rows (approximately)
+-- Dumping data for table cd_dvd_collection.audio_performers: ~4 rows (approximately)
 INSERT INTO `audio_performers` (`id`, `name`, `age`) VALUES
 	(1, 'Paul', 21),
 	(2, 'Bob', 23),
@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `disks` (
   UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table cd_dvd_collection.disks: ~0 rows (approximately)
+-- Dumping data for table cd_dvd_collection.disks: ~4 rows (approximately)
 INSERT INTO `disks` (`id`, `name`) VALUES
 	(1, 'Music Collection'),
 	(2, 'Films and Music'),
@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `disks_films` (
   CONSTRAINT `FK_disks_films_films` FOREIGN KEY (`film_id`) REFERENCES `films` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table cd_dvd_collection.disks_films: ~0 rows (approximately)
+-- Dumping data for table cd_dvd_collection.disks_films: ~5 rows (approximately)
 INSERT INTO `disks_films` (`disk_id`, `film_id`) VALUES
 	(2, 1),
 	(3, 1),
@@ -111,7 +111,7 @@ CREATE TABLE IF NOT EXISTS `disks_music` (
   CONSTRAINT `FK_disks_music_music` FOREIGN KEY (`music_id`) REFERENCES `music` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table cd_dvd_collection.disks_music: ~0 rows (approximately)
+-- Dumping data for table cd_dvd_collection.disks_music: ~4 rows (approximately)
 INSERT INTO `disks_music` (`disk_id`, `music_id`) VALUES
 	(4, 1),
 	(1, 2),
@@ -127,7 +127,7 @@ CREATE TABLE IF NOT EXISTS `films` (
   UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table cd_dvd_collection.films: ~0 rows (approximately)
+-- Dumping data for table cd_dvd_collection.films: ~4 rows (approximately)
 INSERT INTO `films` (`id`, `title`, `producer`) VALUES
 	(1, 'Fantastic Beasts: The Secrets of Dumbledore', 'David Yates'),
 	(2, 'Journey 2: The Mysterious Island', 'Brad Peyton'),
@@ -143,7 +143,7 @@ CREATE TABLE IF NOT EXISTS `film_actor` (
   CONSTRAINT `FK_film_actor_video_performers` FOREIGN KEY (`actor_id`) REFERENCES `video_performers` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table cd_dvd_collection.film_actor: ~0 rows (approximately)
+-- Dumping data for table cd_dvd_collection.film_actor: ~5 rows (approximately)
 INSERT INTO `film_actor` (`film_id`, `actor_id`) VALUES
 	(2, 1),
 	(1, 2),
@@ -161,7 +161,7 @@ CREATE TABLE IF NOT EXISTS `film_genre` (
   CONSTRAINT `FK_film_genre_video_genres` FOREIGN KEY (`genre_id`) REFERENCES `video_genres` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table cd_dvd_collection.film_genre: ~0 rows (approximately)
+-- Dumping data for table cd_dvd_collection.film_genre: ~5 rows (approximately)
 INSERT INTO `film_genre` (`film_id`, `genre_id`) VALUES
 	(1, 1),
 	(2, 1),
@@ -183,7 +183,7 @@ CREATE TABLE IF NOT EXISTS `music` (
   CONSTRAINT `FK_music_audio_performers` FOREIGN KEY (`performer_id`) REFERENCES `audio_performers` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table cd_dvd_collection.music: ~3 rows (approximately)
+-- Dumping data for table cd_dvd_collection.music: ~4 rows (approximately)
 INSERT INTO `music` (`id`, `performer_id`, `album_id`, `name`) VALUES
 	(1, 2, 1, 'Stairway to Heaven'),
 	(2, 5, 2, 'These Are the Days of Our Lives'),
@@ -199,7 +199,7 @@ CREATE TABLE IF NOT EXISTS `music_genre` (
   CONSTRAINT `FK_music_genre_music` FOREIGN KEY (`music_id`) REFERENCES `music` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table cd_dvd_collection.music_genre: ~4 rows (approximately)
+-- Dumping data for table cd_dvd_collection.music_genre: ~5 rows (approximately)
 INSERT INTO `music_genre` (`music_id`, `genre_id`) VALUES
 	(1, 3),
 	(2, 1),
@@ -214,7 +214,7 @@ CREATE TABLE IF NOT EXISTS `video_genres` (
   UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table cd_dvd_collection.video_genres: ~7 rows (approximately)
+-- Dumping data for table cd_dvd_collection.video_genres: ~6 rows (approximately)
 INSERT INTO `video_genres` (`id`, `genre`) VALUES
 	(1, 'Action'),
 	(2, 'Horror'),
@@ -233,7 +233,7 @@ CREATE TABLE IF NOT EXISTS `video_performers` (
   UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table cd_dvd_collection.video_performers: ~0 rows (approximately)
+-- Dumping data for table cd_dvd_collection.video_performers: ~4 rows (approximately)
 INSERT INTO `video_performers` (`id`, `name`, `age`) VALUES
 	(1, 'Liam', 26),
 	(2, 'Noah', 23),
