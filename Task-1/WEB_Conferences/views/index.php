@@ -9,12 +9,7 @@
     />
 
     <!-- Bootstrap CSS -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/css/bootstrap.min.css"
-      integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
-      crossorigin="anonymous"
-    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 
     <title>Hello, world!</title>
   </head>
@@ -32,17 +27,19 @@
       </div>
       <hr class="mt-0" />
       <div class="main_block">
+        <?php foreach ($data as $key => $item): ?>
         <div class="row align-items-center alert border border-secondary mb-2">
-          <div class="col-6 text-truncate">
-            <a href="#" class="text-dark text-decoration-none"
-              >Conference linkajirgoisergbsiorgisdrngsdjkvnsa</a
+          <div class="col-6 text-truncate h-100">
+            <a href="#" class="text-dark text-decoration-none stretched-link "
+              ><?php echo $item['title']; ?></a
             >
           </div>
           <div class="col-4">
-            <h6 class="mb-0">2022-09-10 13:00:00</h6>
+            <h6 class="mb-0"><?php echo $item['date']; ?></h6>
           </div>
           <div class="col-2 d-flex justify-content-end">
-            <button type="button" class="btn btn-outline-danger">
+            <a href="/delete.php?id=<?php echo $item['id']; ?>">
+            <button type="button" class="btn btn-outline-danger" >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -60,29 +57,19 @@
                 />
               </svg>
             </button>
+            </a>
+
           </div>
         </div>
-        
+        <?php endforeach;?>
         </div>
       </div>
     </div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script
-      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/popper.js@1.14.6/dist/umd/popper.min.js"
-      integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/js/bootstrap.min.js"
-      integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
-      crossorigin="anonymous"
-    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
   </body>
 </html>
