@@ -25,12 +25,12 @@ class homeController {
    */
   public function actionConferences() {
     // Create model instance
-    $model = new Conferences();
+    //$model = new Conferences();
 
     // Take data using model
-    $data = $model->displayAll();
+    //$data = $model->displayAll();
 
     // Pass the data to the view
-    View::render('news', ['data' => $data]);
+    //View::render('news', ['data' => $data]);
   }
 }
