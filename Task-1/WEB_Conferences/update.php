@@ -8,8 +8,8 @@ $date = $_POST['date'];
 $country = $_POST['country'];
 $location = explode(', ', $_POST['location']);
 
-$latitude = (float) $location[0];
-$longitude = (float) $location[1];
+$latitude = $location ? (float) $location[0] : 0;
+$longitude = $location ? (float) $location[1] : 0;
 
 $sql = 'Update conferences Set title = :title, date = :date, country = :country, latitude = :latitude, longitude = :longitude Where id = :id';
 

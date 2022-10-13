@@ -7,8 +7,8 @@ $date = $_POST['date'];
 $country = $_POST['country'];
 $location = explode(', ', $_POST['location']);
 
-$latitude = (float) $location[0];
-$longitude = (float) $location[1];
+$latitude = $location ? (float) $location[0] : 0;
+$longitude = $location ? (float) $location[1] : 0;
 
 $sql = "Insert into conferences (title, date, country, latitude, longitude) VALUES (:title, :date, :country, :latitude, :longitude)";
 

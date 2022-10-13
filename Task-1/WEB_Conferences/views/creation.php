@@ -90,7 +90,7 @@
 
         // The map, centered at the address
         const map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 10,
+          zoom: 6,
           center: address,
           draggableCursor: 'default'
         });
@@ -98,26 +98,31 @@
         // The marker, positioned at the address
         const marker = new google.maps.Marker({
           position: address,
-          map: map,
+          map: null,
           draggable:true,
         });
 
         function placeMarker(location) {
-        if ( marker ) {
-          marker.setPosition(location);
-        } else {
-          marker = new google.maps.Marker({
-            position: location,
-            map: map
-          });
-        }
+          if ( marker ) {
+            marker.map ? '' : marker.setMap(map);
+            marker.setPosition(location);
+          } else {
+            marker = new google.maps.Marker({
+              position: location,
+              map: map
+            });
+          }
 
-        document.getElementById('location').value = `${location.lat()}, ${location.lng()}`;
-        console.log(document.getElementById('location').value);
+          document.getElementById('location').value = `${location.lat()}, ${location.lng()}`;
+          console.log(document.getElementById('location').value);
         }
 
         google.maps.event.addListener(map, 'click', function(event) {
           placeMarker(event.latLng);
+        });
+        google.maps.event.addListener(map, 'contextmenu', function(event) {
+          marker.setMap(null);
+          document.getElementById('location').value = 0;
         });
       }
 

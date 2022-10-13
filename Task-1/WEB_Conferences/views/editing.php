@@ -59,8 +59,13 @@
               >Country</label
             >
             <select name="country" id="country_select" class="form-control" required>
-              <option value="Ukraine">Ukraine</option>
-              <option value="UK">UK</option>
+              <?php foreach ($countries as $key => $value): ?>
+              <option value="<?php echo $value['country']; ?>"
+              <?php if ($value['country'] === $data['country']): ?>
+                selected
+                <?php endif;?>
+              ><?php echo $value['country']; ?></option>
+              <?php endforeach;?>
             </select>
           </div>
         </div>
@@ -85,48 +90,58 @@
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwWs4rcSlTx2sDXryyvsj4z0fwphWt-lU&callback=initMap"></script>
 
     <script>
-      const lat = Number("<?php echo $data['latitude']; ?>");
-      const lng = Number("<?php echo $data['longitude']; ?>");
+      let lat = Number("<?php echo $data['latitude']; ?>");
+      let lng = Number("<?php echo $data['longitude']; ?>");
+      const isAddress = !!(lat && lng);
+      const defaultCoords = {
+          lat: 49.0969714297207,
+          lng: 30.9151475940165,
+        }
+
       document.getElementById('location').value = `${lat}, ${lng}`;
       // Initialize and add the map
       function initMap() {
-        if(!lat || !lng || !(lat && lng)) {
-          document.querySelector('.google-map').innerHTML = 'The conference has no address';
-          return;
-        }
+
+
 
         // The location of address
-        const address = { lat, lng };
+        const address = isAddress ? { lat, lng } : { lat: defaultCoords.lat, lng: defaultCoords.lng};
 
         // The map, centered at the address
         const map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 12,
+          zoom: 6,
           center: address,
         });
 
         // The marker, positioned at the address
         const marker = new google.maps.Marker({
           position: address,
-          map: map,
+          map: isAddress ? map : null,
           draggable:true,
         });
 
         function placeMarker(location) {
-        if ( marker ) {
-          marker.setPosition(location);
-        } else {
-          marker = new google.maps.Marker({
-            position: location,
-            map: map
-          });
-        }
+          if ( marker ) {
+            marker.map ? '' : marker.setMap(map);
+            marker.setPosition(location);
+          } else {
+            marker = new google.maps.Marker({
+              position: location,
+              map: map
+            });
+          }
 
-        document.getElementById('location').value = `${location.lat()}, ${location.lng()}`;
-        console.log(document.getElementById('location').value);
+          document.getElementById('location').value = `${location.lat()}, ${location.lng()}`;
+          console.log(document.getElementById('location').value);
         }
 
         google.maps.event.addListener(map, 'click', function(event) {
           placeMarker(event.latLng);
+        });
+
+        google.maps.event.addListener(map, 'contextmenu', function(event) {
+          marker.setMap(null);
+          document.getElementById('location').value = 0;
         });
       }
 

@@ -1,6 +1,7 @@
 <?php
 
 require_once "config/DBconfig.php";
+require_once "select_countries.php";
 
 $id = $_GET['id'];
 
