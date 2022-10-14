@@ -1,6 +1,6 @@
 <?php
 
-namespace System;
+namespace Classes;
 
 /**
  * Main app class

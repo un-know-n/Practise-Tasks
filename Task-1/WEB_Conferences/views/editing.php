@@ -18,14 +18,14 @@
         </div>
 
         <div class="col-2 col-sm-1 d-flex justify-content-end">
-        <a href="/delete.php?id=<?php echo $_GET['id']; ?>">
+        <a href="/delete?id=<?php echo $_GET['id']; ?>">
           <?php include "components/buttons/delete_button.php";?>
         </a>
 
         </div>
       </div>
 
-      <form action="/update.php?id=<?php echo $_GET['id']; ?>" name="edit-form" method="post">
+      <form action="/update?id=<?php echo $_GET['id']; ?>" name="edit-form" method="post">
         <div class="form-group text-truncate">
           <label for="exampleInputEmail1">Name of the conference</label>
           <input
@@ -101,9 +101,6 @@
       document.getElementById('location').value = `${lat}, ${lng}`;
       // Initialize and add the map
       function initMap() {
-
-
-
         // The location of address
         const address = isAddress ? { lat, lng } : { lat: defaultCoords.lat, lng: defaultCoords.lng};
 
@@ -111,6 +108,7 @@
         const map = new google.maps.Map(document.getElementById('map'), {
           zoom: 6,
           center: address,
+          draggableCursor: 'default'
         });
 
         // The marker, positioned at the address

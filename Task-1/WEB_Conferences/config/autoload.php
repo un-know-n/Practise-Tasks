@@ -7,11 +7,13 @@ spl_autoload_register(function (string $class) {
   echo "class replaced: $class" . PHP_EOL;
   $controllers = __DIR__ . "/controllers/{$class}.php";
   $models = __DIR__ . "/models/{$class}.php";
+  $classes = __DIR__ . "/config/classes/{$class}.php";
   if (is_readable($controllers)) {
-    echo "file was found: $controllers" . PHP_EOL;
     require $controllers;
   } elseif (is_readable($models)) {
-    echo "file was found: $models" . PHP_EOL;
     require $models;
+  } elseif (is_readable($classes)) {
+    require $classes;
   }
+
 });

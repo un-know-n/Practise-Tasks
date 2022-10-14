@@ -1,6 +1,6 @@
 <?php
 
-namespace System;
+namespace Classes;
 
 /**
  * Main class that realizes displaying logic
@@ -17,7 +17,7 @@ class View {
    */
   public static function render(string $path, array $data = []) {
     //Take the path, where all the views are placed
-    $fullPath = __DIR__ . '../views/' . $path . '.php';
+    $fullPath = __DIR__ . '/../../views/' . $path . '.php';
 
     //If there is no view, throw an exception
     if (!file_exists($fullPath)) {

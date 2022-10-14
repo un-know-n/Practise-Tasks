@@ -11,7 +11,7 @@
         <div class="row align-items-center">
           <div class="col-6"><h2>All the conferences</h2></div>
           <div class="col-6 d-flex justify-content-end">
-          <a href="/views/creation.php">
+          <a href="create">
             <button type="button" class="btn btn-outline-success">
               New conference
             </button>
@@ -24,7 +24,7 @@
         <?php foreach ($data as $key => $item): ?>
         <div class="row align-items-center alert border border-secondary mb-2 position-relative">
           <div class="col-6 text-truncate h-100">
-            <a href="/select.php?id=<?php echo $item['id']; ?>" class="text-dark text-decoration-none stretched-link "
+            <a href="select?id=<?php echo $item['id']; ?>" class="text-dark text-decoration-none stretched-link "
               ><?php echo $item['title']; ?></a
             >
           </div>
@@ -32,7 +32,7 @@
             <h6 class="mb-0"><?php echo $item['date']; ?></h6>
           </div>
           <div class="col-2 d-flex justify-content-end">
-            <a href="/delete.php?id=<?php echo $item['id']; ?>">
+            <a href="/delete?id=<?php echo $item['id']; ?>">
             <?php include "components/buttons/delete_button.php";?>
             </a>
 

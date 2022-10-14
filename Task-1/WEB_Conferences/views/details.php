@@ -18,12 +18,12 @@
             </a>
           </div>
           <div class="col-2 col-sm-1 d-flex justify-content-end">
-            <a href="/select_edit.php?id=<?php echo $data['id']; ?>">
+            <a href="/edit?id=<?php echo $data['id']; ?>">
               <?php include "components/buttons/edit_button.php";?>
             </a>
           </div>
           <div class="col-2 col-sm-1 d-flex justify-content-end">
-            <a href="/delete.php?id=<?php echo $data['id']; ?>">
+            <a href="/delete?id=<?php echo $data['id']; ?>">
               <?php include "components/buttons/delete_button.php";?>
             </a>
 

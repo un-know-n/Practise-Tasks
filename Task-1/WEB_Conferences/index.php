@@ -3,18 +3,24 @@
 //Turn on strict mode
 declare (strict_types = 1);
 
-require_once 'config/DBconfig.php';
+//Autoload all the classes
+require_once "config/autoload.php";
 
-//Include autoloading file
-//require_once __DIR__ . '/system/autoload.php';
+require_once "config/classes/DB.php";
+require_once "config/classes/View.php";
+require_once "models/Conferences.php";
+require_once "controllers/MainController.php";
+require_once "config/classes/Router.php";
 
-//Starting app
-//System\App::run();
+//Check the URL
+require_once 'config/routes.php';
 
-$sql = 'SELECT id, title, date FROM conferences ORDER BY id DESC';
-$statement = $pdo->query($sql);
-$data = $statement->fetchAll(PDO::FETCH_ASSOC);
+//Previous Code---------------------
 
-//print_r($data);
+//require_once 'config/DBconfig.php';
 
-include "views/index.php";
+//$sql = 'SELECT id, title, date FROM conferences ORDER BY id DESC';
+//$statement = $pdo->query($sql);
+//$data = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+//include "views/index.php";

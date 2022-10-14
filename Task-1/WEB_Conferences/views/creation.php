@@ -17,7 +17,7 @@
         </div>
       </div>
 
-      <form action="../insert.php" name="edit-form" method="post">
+      <form action="insert" name="edit-form" method="post">
         <div class="form-group text-truncate">
           <label for="exampleInputEmail1">Name of the conference</label>
           <input
@@ -49,8 +49,9 @@
               >Country</label
             >
             <select name="country" id="country_select" class="form-control" required>
-              <option value="Ukraine">Ukraine</option>
-              <option value="UK">UK</option>
+            <?php foreach ($countries as $key => $value): ?>
+              <option value="<?php echo $value['country']; ?>"><?php echo $value['country']; ?></option>
+              <?php endforeach;?>
             </select>
           </div>
         </div>
