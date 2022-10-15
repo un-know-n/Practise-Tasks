@@ -9,10 +9,19 @@ namespace DB;
 class DB {
 
   // Default database config
-  public static $host = '127.0.0.1';
-  public static $dbname = 'web_conferences';
-  public static $login = 'root';
-  public static $password = '';
+  //public static $host = '127.0.0.1';
+  //public static $dbname = 'web_conferences';
+  //public static $login = 'root';
+  //public static $password = '';
+
+  //Get Heroku ClearDB connection information
+  public static $cleardb_url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+  public static $host = $cleardb_url["host"];
+  public static $login = $cleardb_url["user"];
+  public static $password = $cleardb_url["pass"];
+  public static $dbname = substr($cleardb_url["path"],1);
+  public static $active_group = 'default';
+  public static $query_builder = TRUE;
 
   /**
    * Connect to the database and return connection instance
