@@ -10,7 +10,7 @@
       <div class="header_block">
         <div class="row align-items-center">
           <div class="col-6 col-sm-9 text-truncate">
-            <h2><?php echo $data['title']; ?></h2>
+            <h2 class="title-text"><?php echo $data['title']; ?></h2>
           </div>
           <div class="col-2 col-sm-1 d-flex justify-content-end">
             <a href="/">

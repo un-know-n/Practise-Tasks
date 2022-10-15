@@ -115,7 +115,6 @@
         const marker = new google.maps.Marker({
           position: address,
           map: isAddress ? map : null,
-          draggable:true,
         });
 
         function placeMarker(location) {
@@ -137,7 +136,7 @@
           placeMarker(event.latLng);
         });
 
-        google.maps.event.addListener(map, 'contextmenu', function(event) {
+        google.maps.event.addListener(map, 'dblclick', function(event) {
           marker.setMap(null);
           document.getElementById('location').value = 0;
         });

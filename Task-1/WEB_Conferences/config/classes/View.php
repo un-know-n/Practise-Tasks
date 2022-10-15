@@ -33,6 +33,5 @@ class View {
 
     //Display the view
     include $fullPath;
-
   }
 }

@@ -1,0 +1,55 @@
+/* Default styles */
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+*,
+*:focus,
+*:active {
+  outline: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 100%;
+  font-family: Arial, sans-serif;
+}
+
+/* View styles */
+
+/* Header block */
+
+.header_block {
+  margin-bottom: 10px;
+}
+
+/* Changing the default bootstrap classes */
+.alert {
+  padding: 0.75rem 0;
+}
+
+/* Google MAP */
+#map {
+  min-height: 300px;
+  width: 100%;
+}
+
+/* Media queries */
+@media screen and (max-width: 768px) {
+  .title-text {
+    font-size: 18px;
+  }
+}

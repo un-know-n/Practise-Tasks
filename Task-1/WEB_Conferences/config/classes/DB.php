@@ -2,6 +2,10 @@
 
 namespace DB;
 
+/**
+ * Handle the connection to database
+ *
+ */
 class DB {
 
   // Default database config
@@ -10,6 +14,11 @@ class DB {
   public static $login = 'root';
   public static $password = '';
 
+  /**
+   * Connect to the database and return connection instance
+   *
+   * @return object $pdo Instance of PDO class
+   */
   public static function connect() {
     //Options for database
     $options = [
@@ -18,8 +27,10 @@ class DB {
       \PDO::ATTR_EMULATE_PREPARES => false,
     ];
 
+    //Set up the database
     $dsn = 'mysql:host=' . self::$host . ';dbname=' . self::$dbname;
 
+    //Create an instance of PDO
     return $pdo = new \PDO($dsn, self::$login, self::$password, $options);
   }
 }
