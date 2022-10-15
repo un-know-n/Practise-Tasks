@@ -2,6 +2,15 @@
 
 namespace DB;
 
+//Get Heroku ClearDB connection information
+$cleardb_url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+$host = $cleardb_url["host"];
+$login = $cleardb_url["user"];
+$password = $cleardb_url["pass"];
+$dbname = substr($cleardb_url["path"], 1);
+$active_group = 'default';
+$query_builder = TRUE;
+
 /**
  * Handle the connection to database
  *
@@ -14,21 +23,17 @@ class DB {
   //public static $login = 'root';
   //public static $password = '';
 
-  //Get Heroku ClearDB connection information
-  public static $cleardb_url = parse_url(getenv("CLEARDB_DATABASE_URL"));
-  public static $host = $cleardb_url["host"];
-  public static $login = $cleardb_url["user"];
-  public static $password = $cleardb_url["pass"];
-  public static $dbname = substr($cleardb_url["path"],1);
-  public static $active_group = 'default';
-  public static $query_builder = TRUE;
-
   /**
    * Connect to the database and return connection instance
    *
    * @return object $pdo Instance of PDO class
    */
   public static function connect() {
+    global $host;
+    global $dbname;
+    global $login;
+    global $password;
+
     //Options for database
     $options = [
       \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
@@ -37,9 +42,9 @@ class DB {
     ];
 
     //Set up the database
-    $dsn = 'mysql:host=' . self::$host . ';dbname=' . self::$dbname;
+    $dsn = 'mysql:host=' . $host . ';dbname=' . $dbname;
 
     //Create an instance of PDO
-    return $pdo = new \PDO($dsn, self::$login, self::$password, $options);
+    return $pdo = new \PDO($dsn, $login, $password, $options);
   }
 }
