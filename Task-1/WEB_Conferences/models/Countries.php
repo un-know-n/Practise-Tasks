@@ -21,7 +21,7 @@ class Countries {
     $pdo = DB::connect();
 
     //SQL query
-    $sql = "Select * from countries";
+    $sql = "SELECT * FROM countries";
 
     //Execute the query and take back data
     $statement = $pdo->query($sql);

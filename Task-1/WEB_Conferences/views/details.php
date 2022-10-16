@@ -57,44 +57,7 @@
     </div>
 
     <!-- Scripts -->
-    <?php include "components/including_scripts.php";?>
-
-    <!-- Google MAP API -->
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwWs4rcSlTx2sDXryyvsj4z0fwphWt-lU&callback=initMap"></script>
-
-    <script>
-      const lat = Number("<?php echo $data['latitude']; ?>");
-      const lng = Number("<?php echo $data['longitude']; ?>");
-      // Initialize and add the map
-      function initMap() {
-        if(!lat || !lng || !(lat && lng)) {
-          document.querySelector('.google-map').innerHTML = 'The conference has no address';
-          //const googleMapBlock =
-          // const addressTextBlock = document.createElement('div');
-          // addressTextBlock.innerText = ;
-          // googleMapBlock.append(addressTextBlock);
-          return;
-        }
-
-        // The location of address
-        const address = { lat, lng };
-
-        // The map, centered at the address
-        const map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 12,
-          center: address,
-        });
-
-        // The marker, positioned at the address
-        const marker = new google.maps.Marker({
-          position: address,
-          map: map,
-          // draggable:true,
-          // title:"Drag me!"
-        });
-      }
-
-      window.initMap = initMap;
-    </script>
+    <?php include "components/default_scripts.php";?>
+    <?php include "components/map_api_scripts.php";?>
   </body>
 </html>

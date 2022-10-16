@@ -43,6 +43,6 @@
     </div>
 
     <!-- Scripts -->
-    <?php include "components/including_scripts.php";?>
+    <?php include "components/default_scripts.php";?>
   </body>
 </html>

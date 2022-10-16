@@ -1,6 +1,6 @@
 <button
   type="submit"
-  class="d-block btn btn-lg btn-outline-success m-auto"
+  class="btn btn-lg btn-outline-success"
 >
   Finish
   <svg

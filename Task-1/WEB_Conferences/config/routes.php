@@ -54,3 +54,9 @@ Router::set('create', function () {
 Router::set('insert', function () {
   MainController::createConference();
 });
+
+Router::set('error', function () {
+  MainController::makeStaticView('error404');
+});
+
+Router::isRouteValid();

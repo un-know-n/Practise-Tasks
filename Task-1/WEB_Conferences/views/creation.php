@@ -42,8 +42,6 @@
               required
             />
           </div>
-          <!-- </div>
-        <div class="form-group"> -->
           <div class="country w-25">
             <label for="country" class="d-block font-weight-light"
               >Country</label
@@ -65,68 +63,16 @@
           </div>
         </div>
 
-        <?php include "components/buttons/submit_button.php";?>
+        <div class="form-group d-flex justify-content-between">
+          <div id="delete-marker">
+            <?php include "components/buttons/delete_marker_button.php";?>
+          </div>
+          <?php include "components/buttons/submit_button.php";?>
+        </div>
       </form>
 
     <!-- Scripts -->
-    <?php include "components/including_scripts.php";?>
-
-    <!-- Google MAP API -->
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwWs4rcSlTx2sDXryyvsj4z0fwphWt-lU&callback=initMap"></script>
-
-    <script>
-      //Default marker place
-      const lat = 50.49252150883128;
-      const lng = 30.518091310932736;
-      document.getElementById('location').value = `${lat}, ${lng}`;
-      // Initialize and add the map
-      function initMap() {
-        if(!lat || !lng || !(lat && lng)) {
-          document.querySelector('.google-map').innerHTML = 'The conference has no address';
-          return;
-        }
-
-        // The location of address
-        const address = { lat, lng };
-
-        // The map, centered at the address
-        const map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 6,
-          center: address,
-          draggableCursor: 'default'
-        });
-
-        // The marker, positioned at the address
-        const marker = new google.maps.Marker({
-          position: address,
-          map: null,
-        });
-
-        function placeMarker(location) {
-          if ( marker ) {
-            marker.map ? '' : marker.setMap(map);
-            marker.setPosition(location);
-          } else {
-            marker = new google.maps.Marker({
-              position: location,
-              map: map
-            });
-          }
-
-          document.getElementById('location').value = `${location.lat()}, ${location.lng()}`;
-          console.log(document.getElementById('location').value);
-        }
-
-        google.maps.event.addListener(map, 'click', function(event) {
-          placeMarker(event.latLng);
-        });
-        google.maps.event.addListener(map, 'dblclick', function(event) {
-          marker.setMap(null);
-          document.getElementById('location').value = 0;
-        });
-      }
-
-      window.initMap = initMap;
-    </script>
+    <?php include "components/default_scripts.php";?>
+    <?php include "components/map_api_scripts.php";?>
   </body>
 </html>

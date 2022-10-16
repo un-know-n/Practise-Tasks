@@ -6,6 +6,9 @@ use DB\DB;
 //Autoload all the classes
 require_once "config/autoload.php";
 
+//Take the helpers
+require_once "config/helpers.php";
+
 /**
  * Conferences model that contains logic, that is related
  * to "conferences" entity
@@ -21,7 +24,7 @@ class Conferences {
     $pdo = DB::connect();
 
     // Create an sql request
-    $sql = 'select * from conferences';
+    $sql = 'SELECT * FROM conferences ORDER BY DATE';
 
     //Take the data from request
     $data = $pdo->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
@@ -42,23 +45,28 @@ class Conferences {
     $id = $_GET['id'];
 
     //Take all the data from the form
-    $title = $_POST['title'];
-    $date = $_POST['date'];
-    $country = $_POST['country'];
+    $title = validateString($_POST['title']);
+    $date = validateString($_POST['date']);
+    $country = validateString($_POST['country']);
     $location = explode(', ', $_POST['location']);
 
     $latitude = $location ? (float) $location[0] : 0;
     $longitude = $location ? (float) $location[1] : 0;
 
-    //Make the query
-    $statement = $pdo->prepare($sql);
-    $id ? $statement->bindParam('id', $id, \PDO::PARAM_INT) : 0;
-    $statement->bindParam('title', $title, \PDO::PARAM_STR);
-    $statement->bindParam('latitude', $latitude, \PDO::PARAM_STR);
-    $statement->bindParam('longitude', $longitude, \PDO::PARAM_STR);
-    $statement->bindParam('country', $country, \PDO::PARAM_STR);
-    $statement->bindParam('date', $date, \PDO::PARAM_STR);
-    $statement->execute();
+    if (!empty($title) && !empty($date) && !empty($country)) {
+      //Make the query
+      $statement = $pdo->prepare($sql);
+      $id ? $statement->bindParam('id', $id, \PDO::PARAM_INT) : 0;
+      $statement->bindParam('title', $title, \PDO::PARAM_STR);
+      $statement->bindParam('latitude', $latitude, \PDO::PARAM_STR);
+      $statement->bindParam('longitude', $longitude, \PDO::PARAM_STR);
+      $statement->bindParam('country', $country, \PDO::PARAM_STR);
+      $statement->bindParam('date', $date, \PDO::PARAM_STR);
+      $statement->execute();
+    } else {
+      echo "Wrong data!";
+    }
+
   }
 
   /**
@@ -67,7 +75,7 @@ class Conferences {
    */
   public static function insertConference() {
     //SQL query for inserting data into conferences table
-    $sql = "Insert into conferences (title, date, country, latitude, longitude) VALUES (:title, :date, :country, :latitude, :longitude)";
+    $sql = "INSERT INTO conferences (title, date, country, latitude, longitude) VALUES (:title, :date, :country, :latitude, :longitude)";
 
     //Insert the conference
     self::changeConference($sql);
@@ -79,7 +87,7 @@ class Conferences {
    */
   public static function updateConference() {
     //SQL query for updating data in conferences table
-    $sql = 'Update conferences Set title = :title, date = :date, country = :country, latitude = :latitude, longitude = :longitude Where id = :id';
+    $sql = 'UPDATE conferences SET title = :title, date = :date, country = :country, latitude = :latitude, longitude = :longitude Where id = :id';
 
     //Update the conference
     self::changeConference($sql);
@@ -113,7 +121,7 @@ class Conferences {
    */
   public static function displayConference() {
     //SQL query to take the needed conference
-    $sql = 'Select * from conferences where id = :id';
+    $sql = 'SELECT * FROM conferences WHERE id = :id';
 
     //Take the data
     $data = self::findConference($sql);
@@ -128,7 +136,7 @@ class Conferences {
    */
   public static function deleteConference() {
     //SQL query to delete the conference
-    $sql = 'Delete FROM conferences Where id = :id';
+    $sql = 'DELETE FROM conferences WHERE id = :id';
 
     //Execute the query
     self::findConference($sql);
