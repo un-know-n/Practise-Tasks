@@ -12,20 +12,24 @@
         </div>
         <div class="col-2 col-sm-1 d-flex justify-content-end">
           <a href="javascript:history.go(-1)">
-            <?php include "components/buttons/back_button.php";?>
+            <button type="button" class="btn btn-outline-primary">
+              <i class="bi bi-arrow-left"></i>
+            </button>
           </a>
 
         </div>
 
         <div class="col-2 col-sm-1 d-flex justify-content-end">
         <a href="/delete?id=<?php echo $_GET['id']; ?>">
-          <?php include "components/buttons/delete_button.php";?>
+          <button type="button" class="btn btn-outline-danger">
+            <i class="bi bi-trash"></i>
+          </button>
         </a>
 
         </div>
       </div>
 
-      <form action="/update?id=<?php echo $_GET['id']; ?>" name="edit-form" method="post">
+      <form action="/update?id=<?php echo $_GET['id']; ?>" name="edit-form" method="post" class="mt-3">
         <div class="form-group text-truncate">
           <label for="exampleInputEmail1">Name of the conference</label>
           <input
@@ -52,8 +56,6 @@
               required
             />
           </div>
-          <!-- </div>
-        <div class="form-group"> -->
           <div class="country w-25">
             <label for="country" class="d-block font-weight-light"
               >Country</label
@@ -81,9 +83,18 @@
 
         <div class="form-group d-flex justify-content-between">
           <div id="delete-marker">
-            <?php include "components/buttons/delete_marker_button.php";?>
+            <button type="button" class="btn btn-lg btn-outline-danger">
+              Delete marker
+              <i class="bi bi-x"></i>
+            </button>
           </div>
-          <?php include "components/buttons/submit_button.php";?>
+          <button
+            type="submit"
+            class="btn btn-lg btn-outline-success"
+          >
+            Finish
+            <i class="bi bi-check2-all"></i>
+          </button>
         </div>
       </form>
     </div>

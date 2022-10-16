@@ -23,15 +23,12 @@ class Router {
     //If the route is right, then execute the callback
     if ($_GET['url'] == $route) {
       $callback->__invoke();
-      // echo "<pre>";
-      // print_r(self::$validRoutes[0]);
     }
-
   }
 
   /**
-   * Checks if the current route is valid. Checks the route
-   * against the global $Routes array.
+   * Check if the current route is valid. Check the route
+   * against the global $validRoutes array.
    */
   public static function isRouteValid() {
     $uri = $_GET['url'];

@@ -22,8 +22,12 @@ function initMap() {
   //If there is no address in conference, display it on 'select' page
   if (window.location.pathname === '/select') {
     if (!isAddress) {
-      document.querySelector('.google-map').innerHTML =
-        'The conference has no address';
+      document.querySelector(
+        '.google-map',
+      ).innerHTML = `<div class="row align-items-center d-flex flex-column">
+        <i class="bi bi-geo-alt" style="font-size: 124px;"></i>
+        <h3 class="font-weight-light text-monospace text-muted text-center">The conference has no address</h3>
+      </div>`;
       return;
     }
   }

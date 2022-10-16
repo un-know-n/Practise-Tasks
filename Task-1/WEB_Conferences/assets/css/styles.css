@@ -45,6 +45,11 @@ body {
   padding: 0.75rem 0;
 }
 
+.row {
+  margin-right: 0;
+  margin-left: 0;
+}
+
 /* Google MAP */
 #map {
   min-height: 300px;

@@ -55,8 +55,12 @@ Router::set('insert', function () {
   MainController::createConference();
 });
 
+/**
+ * Render page with 404 error
+ */
 Router::set('error', function () {
   MainController::makeStaticView('error404');
 });
 
+//Check if current route is valid
 Router::isRouteValid();

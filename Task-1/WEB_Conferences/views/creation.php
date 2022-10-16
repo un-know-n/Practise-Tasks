@@ -12,12 +12,14 @@
         </div>
         <div class="col-2 col-sm-2 d-flex justify-content-end">
           <a href="/">
-            <?php include "components/buttons/back_button.php";?>
+            <button type="button" class="btn btn-outline-primary">
+              <i class="bi bi-arrow-left"></i>
+            </button>
           </a>
         </div>
       </div>
 
-      <form action="insert" name="edit-form" method="post">
+      <form action="insert" name="edit-form" method="post" class="mt-3">
         <div class="form-group text-truncate">
           <label for="exampleInputEmail1">Name of the conference</label>
           <input
@@ -65,9 +67,18 @@
 
         <div class="form-group d-flex justify-content-between">
           <div id="delete-marker">
-            <?php include "components/buttons/delete_marker_button.php";?>
+            <button type="button" class="btn btn-lg btn-outline-danger">
+              Delete marker
+              <i class="bi bi-x"></i>
+            </button>
           </div>
-          <?php include "components/buttons/submit_button.php";?>
+          <button
+            type="submit"
+            class="btn btn-lg btn-outline-success"
+          >
+            Finish
+            <i class="bi bi-check2-all"></i>
+          </button>
         </div>
       </form>
 

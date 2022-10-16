@@ -14,36 +14,41 @@
           </div>
           <div class="col-2 col-sm-1 d-flex justify-content-end">
             <a href="/">
-              <?php include "components/buttons/back_button.php";?>
+              <button type="button" class="btn btn-outline-primary">
+                <i class="bi bi-arrow-left"></i>
+              </button>
             </a>
           </div>
           <div class="col-2 col-sm-1 d-flex justify-content-end">
             <a href="/edit?id=<?php echo $data['id']; ?>">
-              <?php include "components/buttons/edit_button.php";?>
+              <button type="button" class="btn btn-outline-warning">
+                <i class="bi bi-pencil"></i>
+              </button>
             </a>
           </div>
           <div class="col-2 col-sm-1 d-flex justify-content-end">
             <a href="/delete?id=<?php echo $data['id']; ?>">
-              <?php include "components/buttons/delete_button.php";?>
+              <button type="button" class="btn btn-outline-danger">
+                <i class="bi bi-trash"></i>
+              </button>
             </a>
-
           </div>
         </div>
-        <div class="row">
+        <div class="row mt-2">
           <div class="col">
             <div class="date">
-              <h2 class="font-weight-light text-muted">Date: <?php echo $data['date']; ?></h2>
+              <h2 class="font-weight-light text-muted">Date: <?php echo date_format(date_create($data['date']), 'd/m/Y H:i'); ?></h2>
             </div>
           </div>
         </div>
-        <div class="row">
+        <div class="row mt-2">
           <div class="col">
             <div class="country">
               <h2 class="font-weight-light">Country: <?php echo $data['country']; ?></h2>
             </div>
           </div>
         </div>
-        <div class="row">
+        <div class="row mt-2">
           <div class="col">
             <div class="google-map">
             <div class="someText">

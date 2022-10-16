@@ -26,5 +26,4 @@ spl_autoload_register(function (string $class) {
   } elseif (is_readable($classes)) {
     require_once $classes;
   }
-
 });

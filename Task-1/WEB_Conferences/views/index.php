@@ -20,24 +20,34 @@
         </div>
       </div>
       <div class="main_block">
-        <?php foreach ($data as $key => $item): ?>
-        <div class="row align-items-center alert border border-secondary mb-2 position-relative">
-          <div class="col-5 text-truncate h-100">
-            <a href="select?id=<?php echo $item['id']; ?>" class="text-dark text-decoration-none stretched-link "
-              ><?php echo $item['title']; ?></a
-            >
-          </div>
-          <div class="col-5">
-            <h6 class="mb-0"><?php echo $item['date']; ?></h6>
-          </div>
-          <div class="col-2 d-flex justify-content-end">
-            <a href="/delete?id=<?php echo $item['id']; ?>">
-            <?php include "components/buttons/delete_button.php";?>
-            </a>
+        <?php if (!empty($data)): ?>
+          <?php foreach ($data as $key => $item): ?>
+          <div class="row align-items-center alert border border-secondary mb-2 position-relative">
+            <div class="col-5 text-truncate h-100">
+              <a href="select?id=<?php echo $item['id']; ?>" class="text-dark text-decoration-none stretched-link "
+                ><?php echo $item['title']; ?></a
+              >
+            </div>
+            <div class="col-5">
+              <h6 class="mb-0"><?php echo date_format(date_create($item['date']), 'd/m/Y H:i'); ?>
+              </h6>
+            </div>
+            <div class="col-2 d-flex justify-content-end">
+              <a href="/delete?id=<?php echo $item['id']; ?>">
+                <button type="button" class="btn btn-outline-danger">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </a>
 
+            </div>
           </div>
-        </div>
-        <?php endforeach;?>
+          <?php endforeach;?>
+        <?php else: ?>
+          <div class="row align-items-center d-flex flex-column">
+            <i class="bi bi-calendar2-week" style="font-size: 124px;"></i>
+            <h3 class="font-weight-light text-monospace text-muted text-center">There is no assigned conferences for now</h3>
+          </div>
+        <?php endif;?>
         </div>
       </div>
     </div>
