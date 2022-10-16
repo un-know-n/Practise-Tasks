@@ -2,6 +2,9 @@
 <html lang="en">
   <head>
     <?php include "components/header.php";?>
+    <style>
+      <?php include "assets/css/styles.css";?>
+    </style>
     <title>Create conference</title>
   </head>
   <body>
@@ -84,6 +87,11 @@
 
     <!-- Scripts -->
     <?php include "components/default_scripts.php";?>
+    <script>
+      let lat = 0;
+      let lng = 0;
+      <?php include "assets/js/map.js";?>
+    </script>
     <?php include "components/map_api_scripts.php";?>
   </body>
 </html>

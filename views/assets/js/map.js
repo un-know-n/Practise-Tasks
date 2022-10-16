@@ -1,24 +1,24 @@
-//Take the coordinates
-let lat = Number(document.currentScript.getAttribute('lat'));
-let lng = Number(document.currentScript.getAttribute('lng'));
-
-//If no coordinates, use default address
-const isAddress = !!(lat && lng);
-const defaultCoords = {
-  lat: 49.0969714297207,
-  lng: 30.9151475940165,
-};
-
-//Define the final address of the map
-const finalAddress = isAddress
-  ? { lat, lng }
-  : { lat: defaultCoords.lat, lng: defaultCoords.lng };
-
-//Find the hidden input
-const hiddenInput = document.getElementById('location');
-
 // Initialize and add the map
 function initMap() {
+  //Take the coordinates
+  // let lat = Number(document.currentScript.getAttribute('lat'));
+  // let lng = Number(document.currentScript.getAttribute('lng'));
+
+  //If no coordinates, use default address
+  const isAddress = !!(lat && lng);
+  const defaultCoords = {
+    lat: 49.0969714297207,
+    lng: 30.9151475940165,
+  };
+
+  //Define the final address of the map
+  const finalAddress = isAddress
+    ? { lat, lng }
+    : { lat: defaultCoords.lat, lng: defaultCoords.lng };
+
+  //Find the hidden input
+  const hiddenInput = document.getElementById('location');
+
   //If there is no address in conference, display it on 'select' page
   if (window.location.pathname === '/select') {
     if (!isAddress) {

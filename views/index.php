@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-  <?php include "components/header.php";?>
-
+    <?php include "components/header.php";?>
+    <style>
+        <?php include "assets/css/styles.css";?>
+    </style>
     <title>All conferences</title>
   </head>
   <body>

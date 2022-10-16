@@ -17,6 +17,9 @@ Router::set('index.php', function () {
  * Render the page of selected conference
  */
 Router::set('select', function () {
+  if (empty($_GET['id'])) {
+    header('Location: /error');
+  }
   MainController::seeConference();
 });
 
@@ -24,6 +27,9 @@ Router::set('select', function () {
  * Render the page to edit the selected conference
  */
 Router::set('edit', function () {
+  if (empty($_GET['id'])) {
+    header('Location: /error');
+  }
   MainController::renderConference('editing');
 });
 

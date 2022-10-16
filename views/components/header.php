@@ -12,8 +12,8 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 
 <!-- Favicon -->
-<link rel="icon" type="image/x-icon" href="../../assets/images/favicon.ico">
+<!-- <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico"> -->
 
 <!-- Own Styles -->
-<link rel="stylesheet" href="../../assets/css/styles.css">
+<!-- <link rel="stylesheet" href="/assets/css/styles.css"> -->
 

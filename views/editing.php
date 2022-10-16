@@ -2,6 +2,9 @@
 <html lang="en">
   <head>
     <?php include "components/header.php";?>
+    <style>
+      <?php include "assets/css/styles.css";?>
+    </style>
     <title>Edit conference</title>
   </head>
   <body>
@@ -101,6 +104,12 @@
 
     <!-- Scripts -->
     <?php include "components/default_scripts.php";?>
+    <script>
+      let lat = Number("<?php echo $data['latitude']; ?>");
+      let lng = Number("<?php echo $data['longitude']; ?>");
+      <?php include "assets/js/map.js";?>
+    </script>
     <?php include "components/map_api_scripts.php";?>
+
   </body>
 </html>
