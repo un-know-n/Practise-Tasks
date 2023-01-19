@@ -307,6 +307,32 @@ const range = (start = 0, stop, step = 1) => {
 //     .join(' ');
 // }
 
+//* =====================================
+//* Check brackets (if the string has enough of closing brackets)
+//*======================================
+
+function checkBrackets(string) {
+  const array = string.split('');
+  const supportedBrackets = {
+    '(': ')',
+    '[': ']',
+    '{': '}',
+  };
+  const stack = [];
+  for (let i = 0; i < array.length; i++) {
+    const symbol = array[i];
+    if (Object.keys(supportedBrackets).includes(symbol)) stack.push(symbol);
+    else {
+      const lastSymbol = stack.pop();
+      if (symbol !== supportedBrackets[lastSymbol]) return false;
+    }
+  }
+  return !stack.length;
+}
+
+console.log(checkBrackets('([{(})]({(())}({})))[]'));
+console.log(checkBrackets('{(})'));
+
 //! =======================
 //! END
 //! =======================
