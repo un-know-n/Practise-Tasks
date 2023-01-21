@@ -22,7 +22,46 @@ Function.prototype.delay = function (ms) {
 //f('arg1', 'arg2', 1, 2);
 
 //* =====================================
-//* Trees
+//* Binary Tree
+//*======================================
+
+const binaryTree = {
+  value: 6,
+  left: {
+    value: 5,
+    left: {
+      value: 3,
+      left: {
+        value: 1,
+      },
+    },
+    right: {
+      value: 7,
+    },
+  },
+  right: {
+    value: 10,
+    left: {
+      value: 4,
+    },
+    right: {
+      value: 5,
+    },
+  },
+};
+
+const sumBinaryTree = (binaryT) => {
+  if (!binaryT) return;
+  let value = binaryT.value;
+  if (binaryT.left) value += sumBinaryTree(binaryT.left);
+  if (binaryT.right) value += sumBinaryTree(binaryT.right);
+  return value;
+};
+
+//console.log(sumBinaryTree(binaryTree));
+
+//* =====================================
+//* Random Tree
 //*======================================
 
 const tree = [
@@ -94,15 +133,84 @@ const iterative = (tree) => {
 //* Functions
 //*======================================
 
-function sum(n) {
-  console.log(n);
-  return (n2) => {
-    return sum(n + n2);
+const sum = function (x) {
+  console.log(x);
+  return function (y) {
+    return sum(x + y);
   };
-}
+};
 
-sum(5)(4)(10);
+//console.log(sum(5)(4)(3)(2)(1));
 
 //* =====================================
 //* Objects
 //*======================================
+
+const mergeSameKeysOfObjects = (obj1, obj2) => {
+  for (const key in obj2) {
+    if (Object.keys(obj1).includes(key)) {
+      obj1[key] = obj2[key];
+    }
+  }
+  return obj1;
+};
+
+// console.log(
+//   mergeSameKeysOfObjects(
+//     { foo: 'data', some: 'bar' },
+//     { foo: 'foo', bar: 'bar' }
+//   )
+// );
+
+//* =====================================
+//* Callbacks
+//*======================================
+
+const groupBy = (array, callback) => {
+  const result = {};
+  array.forEach((item) => {
+    const finalized = callback(item);
+    result[finalized]
+      ? result[finalized].push(item)
+      : (result[finalized] = [item]);
+  });
+  return result;
+};
+
+//console.log(groupBy([6.3, 3.3, 3.6, 3.2, 5.1], Math.ceil));
+
+//* =====================================
+//* Own map method
+//*======================================
+
+const arr = [2, -3, 5, 3, 1, 198, 423, 76];
+
+Array.prototype.myMap = function (callback) {
+  const array = this;
+  const resultingArray = [];
+  for (let i = 0; i < array.length; i++) {
+    const element = callback(array[i], i, array);
+    resultingArray.push(element);
+  }
+  return resultingArray;
+};
+
+//console.log(array.myMap((item, index, arr) => String(item)));
+
+//* =====================================
+//* Own flat method
+//*======================================
+
+const nonFlatedArr = [[1, 2, [3, [4]]], 5, [[7]]];
+
+const ownFlat = (array) => {
+  let resultedArray = [];
+  array.forEach((element) => {
+    if (Array.isArray(element))
+      resultedArray = resultedArray.concat(ownFlat(element));
+    else resultedArray.push(element);
+  });
+  return resultedArray;
+};
+
+console.log(ownFlat(nonFlatedArr));

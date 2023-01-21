@@ -330,9 +330,84 @@ function checkBrackets(string) {
   return !stack.length;
 }
 
-console.log(checkBrackets('([{(})]({(())}({})))[]'));
-console.log(checkBrackets('{(})'));
+//console.log(checkBrackets('([{(})]({(())}({})))[]'));
+//console.log(checkBrackets('{(})'));
 
 //! =======================
 //! END
 //! =======================
+
+//* =====================================
+//* Fibonacci (1, 1, 2, 3, 5, 8, 13...)
+//*======================================
+
+const fibonacci = (n) => {
+  if (n <= 0) return 0;
+  if (n <= 2) return 1;
+  return fibonacci(n - 1) + fibonacci(n - 2);
+};
+
+//* var.1
+// const iterativeFibonacci = (n) => {
+//   if (n <= 0) return 0;
+//   if (n <= 2) return 1;
+//   const fArray = [1, 1];
+//   for (let i = fArray.length; i < n; i++) {
+//     fArray.push((fArray[i - 1] ?? 1) + (fArray[i - 2] ?? 1));
+//     if (n - 1 === i) return fArray[i];
+//   }
+// };
+
+//* var.2 (more preferable)
+const iterativeFibonacci = (n) => {
+  if (n <= 0) return 0;
+  if (n <= 2) return 1;
+  let prev = 1,
+    result = 1;
+  for (let i = 0; i < n - 2; i++) {
+    const temp = result;
+    result += prev;
+    prev = temp;
+  }
+  return result;
+};
+
+//console.log(iterativeFibonacci(13));
+
+//* =====================================
+//* Anagram
+//*======================================
+
+const createDictionary = (word) => {
+  if (!word) return {};
+  const dictionary = {};
+  word.split('').map((symbol) => {
+    dictionary[symbol] ? (dictionary[symbol] += 1) : (dictionary[symbol] = 1);
+  });
+  return dictionary;
+};
+
+const anagram = (wordOne, wordTwo) => {
+  if (!wordOne || !wordTwo) return false;
+
+  const wordOneFinalized = wordOne.toLowerCase(),
+    wordTwoFinalized = wordTwo.toLowerCase();
+
+  const wordOneDictionary = createDictionary(wordOneFinalized),
+    wordTwoDictionary = createDictionary(wordTwoFinalized);
+
+  let flag = true;
+
+  for (const key in wordTwoDictionary) {
+    if (
+      wordOneDictionary.hasOwnProperty(key) &&
+      wordOneDictionary[key] === wordTwoDictionary[key]
+    )
+      continue;
+    flag = false;
+  }
+
+  return flag;
+};
+
+console.log(anagram('finder', 'Friend'));
