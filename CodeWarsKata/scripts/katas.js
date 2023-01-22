@@ -410,4 +410,66 @@ const anagram = (wordOne, wordTwo) => {
   return flag;
 };
 
-console.log(anagram('finder', 'Friend'));
+//console.log(anagram('finder', 'Friend'));
+
+//* =====================================
+//* Concerts - O(n * log2n)
+//*======================================
+
+const concertsData = {
+  City1: new Date('2021-04-01'),
+  City2: new Date('2023-04-01'),
+  City3: new Date('2024-02-01'),
+  City4: new Date('2023-02-01'),
+};
+
+// Result ---> ['City4', 'City2', 'City3']
+
+const validateConcerts = (concerts) => {
+  return Object.keys(concerts)
+    .filter((key) => concerts[key] > new Date())
+    .sort((a, b) => concerts[a] - concerts[b]);
+};
+
+//console.log(validateConcerts(concertsData));
+
+//* =====================================
+//* Perimeter - O(n^2)
+//*======================================
+
+const matrix = ['XOOXO', 'XOOXO', 'OOOXO', 'XXOXO', 'OXOOO'];
+
+const perimeter = (matrix) => {
+  let p = 0;
+  for (let i = 0; i < matrix.length; i++) {
+    for (let j = 0; j < matrix[i].length; j++) {
+      if (matrix[i][j] === 'X') {
+        p += j === 0 || matrix[i][j - 1] === 'O';
+        p += i === 0 || matrix[i - 1][j] === 'O';
+        p += j === matrix.length - 1 || matrix[i][j + 1] === 'O';
+        p += i === matrix[i].length - 1 || matrix[i + 1][j] === 'O';
+      }
+    }
+  }
+  return p;
+};
+
+//console.log(perimeter(matrix));
+
+//* =====================================
+//* Without repeat - O(n)
+//*======================================
+
+const linearWithoutRepeat = (arr) => {
+  const dictionary = {};
+  const result = [];
+  arr.map((item) =>
+    dictionary[item] ? (dictionary[item] += 1) : (dictionary[item] = 1)
+  );
+  Object.keys(dictionary).map((key) =>
+    dictionary[key] === 1 ? result.push(key) : ''
+  );
+  return result;
+};
+
+console.log(linearWithoutRepeat([1, 1, 2, 3, 3, 4, 5, 5]));

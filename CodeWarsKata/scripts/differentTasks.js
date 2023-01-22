@@ -213,4 +213,24 @@ const ownFlat = (array) => {
   return resultedArray;
 };
 
-console.log(ownFlat(nonFlatedArr));
+//console.log(ownFlat(nonFlatedArr));
+
+//* =====================================
+//* isUnique
+//*======================================
+
+// const isUnique = (value) => [...new Set(value.split(''))].join('') === value;
+
+const isUnique = (value) => new Set(value).size === value.length;
+
+//console.log(isUnique('abcadfe'));
+
+//* =====================================
+//* Array subset
+//*======================================
+
+function arraySubset(source, subset) {
+  return source.sort().join().includes(subset.sort().join());
+}
+
+//console.log(arraySubset([1, 1, 1, 3], [1, 3, 3]));
