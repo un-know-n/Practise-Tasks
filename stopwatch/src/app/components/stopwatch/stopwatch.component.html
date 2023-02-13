@@ -1,0 +1,29 @@
+<mat-card class="card">
+  <mat-card-header>
+    <mat-card-title>Stopwatch</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="card__timer">
+      <div class="timer__item">
+        <h2 class="time">00 <span>h</span></h2>
+      </div>
+      <div class="timer__item">
+        <h2 class="time">00 <span>m</span></h2>
+      </div>
+      <div class="timer__item">
+        <h2 class="time">00 <span>s</span></h2>
+      </div>
+    </div>
+  </mat-card-content>
+  <mat-card-actions class="controls">
+    <button mat-mini-fab color="primary">
+      <mat-icon>{{ true ? "play_arrow" : "stop" }}</mat-icon>
+    </button>
+    <button mat-mini-fab color="primary">
+      <mat-icon>pause</mat-icon>
+    </button>
+    <button mat-mini-fab color="primary">
+      <mat-icon>restart_alt</mat-icon>
+    </button>
+  </mat-card-actions>
+</mat-card>
