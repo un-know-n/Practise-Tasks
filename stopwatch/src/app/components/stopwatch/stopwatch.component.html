@@ -5,24 +5,35 @@
   <mat-card-content>
     <div class="card__timer">
       <div class="timer__item">
-        <h2 class="time">00 <span>h</span></h2>
+        <h2 class="time">{{ time | formatTime : 'h' }} <span>h</span></h2>
       </div>
       <div class="timer__item">
-        <h2 class="time">00 <span>m</span></h2>
+        <h2 class="time">{{ time | formatTime : 'm' }} <span>m</span></h2>
       </div>
       <div class="timer__item">
-        <h2 class="time">00 <span>s</span></h2>
+        <h2 class="time">{{ time | formatTime : 's' }} <span>s</span></h2>
       </div>
     </div>
   </mat-card-content>
   <mat-card-actions class="controls">
-    <button mat-mini-fab color="primary">
-      <mat-icon>{{ true ? "play_arrow" : "stop" }}</mat-icon>
+    <button
+      mat-mini-fab
+      color="primary"
+      (click)="onToggleTimer(timerSeconds)">
+      <mat-icon>{{ isRunning ? 'stop' : 'play_arrow' }}</mat-icon>
     </button>
-    <button mat-mini-fab color="primary">
+    <button
+      #pauseButton
+      mat-mini-fab
+      color="primary"
+      [disabled]="!isRunning">
       <mat-icon>pause</mat-icon>
     </button>
-    <button mat-mini-fab color="primary">
+    <button
+      mat-mini-fab
+      color="primary"
+      [disabled]="time === '00:00:00'"
+      (click)="onRestartTimer()">
       <mat-icon>restart_alt</mat-icon>
     </button>
   </mat-card-actions>
