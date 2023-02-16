@@ -1,6 +1,5 @@
 import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { buffer, debounceTime, filter, fromEvent, interval, Subject, takeUntil, tap } from 'rxjs';
-import { TTime } from 'src/app/@types/Time';
 
 const DEFAULT_TIME = '00:00:00';
 const DEFAULT_DURATION = 1000;
@@ -21,7 +20,7 @@ export class StopwatchComponent implements OnDestroy {
   waitButton!: ElementRef;
 
   /** Timer initial values */
-  time: TTime = DEFAULT_TIME;
+  time = DEFAULT_TIME;
   timerSeconds = 1;
   isRunning = false;
 
@@ -72,7 +71,7 @@ export class StopwatchComponent implements OnDestroy {
         takeUntil(this.timerStop$),
         tap((value) => {
           // Take time formatted in 'HH:MM:SS'
-          this.time = new Date((value + pausePoint) * 1000).toISOString().slice(11, 19) as TTime;
+          this.time = new Date((value + pausePoint) * 1000).toISOString().slice(11, 19);
           this.timerSeconds = value + pausePoint;
         }),
       )

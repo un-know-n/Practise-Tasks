@@ -5,13 +5,13 @@
   <mat-card-content>
     <div class="card__timer">
       <div class="timer__item">
-        <h2 class="time">{{ time | formatTime : 'h' }} <span>h</span></h2>
+        <h2 class="time">{{ time.slice(0, 2) }} <span>h</span></h2>
       </div>
       <div class="timer__item">
-        <h2 class="time">{{ time | formatTime : 'm' }} <span>m</span></h2>
+        <h2 class="time">{{ time.slice(3, 5) }} <span>m</span></h2>
       </div>
       <div class="timer__item">
-        <h2 class="time">{{ time | formatTime : 's' }} <span>s</span></h2>
+        <h2 class="time">{{ time.slice(6, 8) }} <span>s</span></h2>
       </div>
     </div>
   </mat-card-content>
