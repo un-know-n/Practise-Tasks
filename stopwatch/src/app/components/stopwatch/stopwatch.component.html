@@ -4,15 +4,7 @@
   </mat-card-header>
   <mat-card-content>
     <div class="card__timer">
-      <div class="timer__item">
-        <h2 class="time">{{ time.slice(0, 2) }} <span>h</span></h2>
-      </div>
-      <div class="timer__item">
-        <h2 class="time">{{ time.slice(3, 5) }} <span>m</span></h2>
-      </div>
-      <div class="timer__item">
-        <h2 class="time">{{ time.slice(6, 8) }} <span>s</span></h2>
-      </div>
+      <h2 class="time">{{ timerSeconds * 1000 | date : 'HH:mm:ss' : 'UTC' }}</h2>
     </div>
   </mat-card-content>
   <mat-card-actions class="controls">
@@ -32,7 +24,7 @@
     <button
       mat-mini-fab
       color="primary"
-      [disabled]="time === '00:00:00'"
+      [disabled]="timerSeconds === 0"
       (click)="onRestartTimer()">
       <mat-icon>restart_alt</mat-icon>
     </button>

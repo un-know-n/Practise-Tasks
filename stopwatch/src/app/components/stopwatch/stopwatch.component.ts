@@ -1,9 +1,6 @@
 import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { buffer, debounceTime, filter, fromEvent, interval, Subject, takeUntil, tap } from 'rxjs';
 
-const DEFAULT_TIME = '00:00:00';
-const DEFAULT_DURATION = 1000;
-
 /**
  * Responsible for drawing timer component
  */
@@ -20,12 +17,11 @@ export class StopwatchComponent implements OnDestroy {
   waitButton!: ElementRef;
 
   /** Timer initial values */
-  time = DEFAULT_TIME;
-  timerSeconds = 1;
+  timerSeconds = 0;
   isRunning = false;
 
   /** Main streams of the timer */
-  private timerSource$ = interval(DEFAULT_DURATION);
+  private timerSource$ = interval(1000);
   private timerStop$ = new Subject();
 
   ngAfterViewInit(): void {
@@ -60,8 +56,7 @@ export class StopwatchComponent implements OnDestroy {
   onStopTimer(): void {
     this.isRunning = false;
     this.timerStop$.next(0);
-    this.time = DEFAULT_TIME;
-    this.timerSeconds = 1;
+    this.timerSeconds = 0;
   }
 
   onStartTimer(pausePoint: number): void {
@@ -69,19 +64,14 @@ export class StopwatchComponent implements OnDestroy {
     this.timerSource$
       .pipe(
         takeUntil(this.timerStop$),
-        tap((value) => {
-          // Take time formatted in 'HH:MM:SS'
-          this.time = new Date((value + pausePoint) * 1000).toISOString().slice(11, 19);
-          this.timerSeconds = value + pausePoint;
-        }),
+        tap((value) => (this.timerSeconds = value + pausePoint)),
       )
       .subscribe();
   }
 
   /** Restart timer without stopping it */
   onRestartTimer(): void {
-    this.time = DEFAULT_TIME;
-    this.timerSeconds = 1;
+    this.timerSeconds = 0;
     this.timerStop$.next(0);
     this.onStartTimer(this.timerSeconds);
   }
