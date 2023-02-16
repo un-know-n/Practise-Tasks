@@ -4,27 +4,28 @@
   </mat-card-header>
   <mat-card-content>
     <div class="card__timer">
-      <h2 class="time">{{ timerSeconds * 1000 | date : 'HH:mm:ss' : 'UTC' }}</h2>
+      <h2 class="time">{{ ((timerSource$ | async)?.timerSeconds ?? 0) * 1000 | date : 'HH:mm:ss' : 'UTC' }}</h2>
     </div>
   </mat-card-content>
+  <!-- {{ (timerSource$ | async)?.isRunning }} -->
   <mat-card-actions class="controls">
     <button
       mat-mini-fab
       color="primary"
-      (click)="onToggleTimer(timerSeconds)">
-      <mat-icon>{{ isRunning ? 'stop' : 'play_arrow' }}</mat-icon>
+      (click)="onToggleTimer(timerSource$.value.timerSeconds || 0)">
+      <mat-icon>{{ (timerSource$ | async)?.isRunning ? 'stop' : 'play_arrow' }}</mat-icon>
     </button>
     <button
       #pauseButton
       mat-mini-fab
       color="primary"
-      [disabled]="!isRunning">
+      [disabled]="!(timerSource$ | async)?.isRunning">
       <mat-icon>pause</mat-icon>
     </button>
     <button
       mat-mini-fab
       color="primary"
-      [disabled]="timerSeconds === 0"
+      [disabled]="(timerSource$ | async)?.timerSeconds === 0"
       (click)="onRestartTimer()">
       <mat-icon>restart_alt</mat-icon>
     </button>

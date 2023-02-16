@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
-import { buffer, debounceTime, filter, fromEvent, interval, Subject, takeUntil, tap } from 'rxjs';
+import { BehaviorSubject, buffer, debounceTime, filter, fromEvent, interval, Subject, takeUntil, tap } from 'rxjs';
 
 /**
  * Responsible for drawing timer component
@@ -16,12 +16,11 @@ export class StopwatchComponent implements OnDestroy {
   @ViewChild('pauseButton', { static: false, read: ElementRef })
   waitButton!: ElementRef;
 
-  /** Timer initial values */
-  timerSeconds = 0;
-  isRunning = false;
-
   /** Main streams of the timer */
-  private timerSource$ = interval(1000);
+  timerSource$ = new BehaviorSubject({
+    timerSeconds: 0,
+    isRunning: false,
+  });
   private timerStop$ = new Subject();
 
   ngAfterViewInit(): void {
@@ -35,7 +34,7 @@ export class StopwatchComponent implements OnDestroy {
         filter((clicks) => clicks.length === 2),
       )
       .subscribe(() => {
-        this.isRunning = false;
+        this.timerSource$.next({ ...this.timerSource$.value, isRunning: false });
         this.timerStop$.next(0);
       });
   }
@@ -46,7 +45,7 @@ export class StopwatchComponent implements OnDestroy {
   }
 
   onToggleTimer(pausePoint: number): void {
-    if (this.isRunning) {
+    if (this.timerSource$.value.isRunning) {
       this.onStopTimer();
     } else {
       this.onStartTimer(pausePoint);
@@ -54,25 +53,24 @@ export class StopwatchComponent implements OnDestroy {
   }
 
   onStopTimer(): void {
-    this.isRunning = false;
+    this.timerSource$.next({ ...this.timerSource$.value, isRunning: false, timerSeconds: 0 });
     this.timerStop$.next(0);
-    this.timerSeconds = 0;
   }
 
   onStartTimer(pausePoint: number): void {
-    this.isRunning = true;
-    this.timerSource$
+    this.timerSource$.next({ ...this.timerSource$.value, isRunning: true });
+    interval(1000)
       .pipe(
         takeUntil(this.timerStop$),
-        tap((value) => (this.timerSeconds = value + pausePoint)),
+        tap((value) => this.timerSource$.next({ ...this.timerSource$.value, timerSeconds: value + pausePoint })),
       )
       .subscribe();
   }
 
   /** Restart timer without stopping it */
   onRestartTimer(): void {
-    this.timerSeconds = 0;
+    this.timerSource$.next({ ...this.timerSource$.value, timerSeconds: 0 });
     this.timerStop$.next(0);
-    this.onStartTimer(this.timerSeconds);
+    this.onStartTimer(0);
   }
 }
