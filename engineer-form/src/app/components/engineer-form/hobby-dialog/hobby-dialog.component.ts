@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { composeFormObject } from 'src/app/utils/composeFormObject';
 
 @Component({
   selector: 'app-hobby-dialog',
@@ -21,5 +22,13 @@ export class HobbyDialogComponent implements OnInit {
 
   onClose(): void {
     this.dialogRef.close();
+  }
+
+  onSubmit() {
+    if (!this.hobbyForm.valid) {
+      console.log('There are errors');
+      return;
+    }
+    this.dialogRef.close(composeFormObject(this.hobbyForm));
   }
 }
