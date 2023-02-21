@@ -47,7 +47,11 @@
 
   <mat-form-field appearance="fill">
     <mat-label>Framework</mat-label>
-    <mat-select formControlName="framework">
+    <mat-select
+      formControlName="framework"
+      (selectionChange)="
+        engineerForm.controls['frameworkVersion'].setValue('')
+      ">
       <mat-option
         *ngFor="let technology of technologiesVersions | keyvalue"
         [value]="technology.key"
