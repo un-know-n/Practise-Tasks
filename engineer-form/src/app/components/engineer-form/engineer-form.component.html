@@ -1,6 +1,7 @@
 <form
   [formGroup]="engineerForm"
-  (ngSubmit)="onSubmit()"
+  #formDirective="ngForm"
+  (ngSubmit)="onSubmit(formDirective)"
   class="engineerForm">
   <h1 style="text-align: center">FrontEnd Engineer Form</h1>
 
@@ -11,7 +12,7 @@
       type="text"
       formControlName="firstName" />
 
-    <mat-error *ngIf="engineerForm.controls['firstName'].hasError('required')">
+    <mat-error *ngIf="engineerForm.get('firstName')?.hasError('required')">
       Name is <strong>required</strong>
     </mat-error>
   </mat-form-field>
@@ -22,7 +23,7 @@
       matInput
       type="text"
       formControlName="lastName" />
-    <mat-error *ngIf="engineerForm.controls['lastName'].hasError('required')">
+    <mat-error *ngIf="engineerForm.get('lastName')?.hasError('required')">
       Surname is <strong>required</strong>
     </mat-error>
   </mat-form-field>
@@ -39,8 +40,7 @@
       [for]="birthPicker">
     </mat-datepicker-toggle>
     <mat-datepicker #birthPicker></mat-datepicker>
-    <mat-error
-      *ngIf="engineerForm.controls['dateOfBirth'].hasError('required')">
+    <mat-error *ngIf="engineerForm.get('dateOfBirth')?.hasError('required')">
       Birth date is <strong>required</strong>
     </mat-error>
   </mat-form-field>
@@ -48,38 +48,33 @@
   <mat-form-field appearance="fill">
     <mat-label>Framework</mat-label>
     <mat-select
+      #technology
       formControlName="framework"
-      (selectionChange)="
-        engineerForm.controls['frameworkVersion'].setValue('')
-      ">
+      (selectionChange)="setTechnologyVersion(technology.value)">
       <mat-option
-        *ngFor="let technology of technologiesVersions | keyvalue"
+        *ngFor="let technology of serverData | keyvalue"
         [value]="technology.key"
         >{{ technology.key | titlecase }}</mat-option
       >
     </mat-select>
-    <mat-error *ngIf="engineerForm.controls['framework'].hasError('required')">
+    <mat-error *ngIf="framework.hasError('required')">
       Framework is <strong>required</strong>
     </mat-error>
   </mat-form-field>
 
   <mat-form-field
     appearance="fill"
-    *ngIf="engineerForm.controls['framework'].valid">
+    *ngIf="framework.valid">
     <mat-label>Technology version</mat-label>
     <mat-select formControlName="frameworkVersion">
       <mat-option
-        *ngFor="
-          let version of takeTechnologyVersions(
-            engineerForm.controls['framework'].value
-          )
-        "
+        *ngFor="let version of technologyVersions$ | async"
         [value]="version"
         >{{ version }}</mat-option
       >
     </mat-select>
     <mat-error
-      *ngIf="engineerForm.controls['frameworkVersion'].hasError('required')">
+      *ngIf="engineerForm.get('frameworkVersion')?.hasError('required')">
       Version is <strong>required</strong>
     </mat-error>
   </mat-form-field>
@@ -90,24 +85,20 @@
       matInput
       type="text"
       formControlName="email" />
-    <mat-error
-      *ngIf="
-        engineerForm.controls['email'].hasError('pattern') &&
-        !engineerForm.controls['email'].hasError('required')
-      ">
+    <mat-error *ngIf="email.hasError('pattern')">
       Please enter a <strong>valid</strong> email address
     </mat-error>
-    <mat-error *ngIf="engineerForm.controls['email'].hasError('required')">
+    <mat-error *ngIf="email.hasError('required')">
       Email is <strong>required</strong>
     </mat-error>
-    <mat-error *ngIf="engineerForm.controls['email'].hasError('invalid')">
+    <mat-error *ngIf="email.hasError('invalid')">
       Email has <strong>already</strong> been taken
     </mat-error>
   </mat-form-field>
 
   <div>
     <div class="hobbies">
-      <h2 class="hobbies__title">Hobbies</h2>
+      <h2 class="hobbies-title">Hobbies</h2>
       <button
         mat-mini-fab
         type="button"
@@ -116,16 +107,12 @@
         <mat-icon>add</mat-icon>
       </button>
     </div>
-    <mat-error *ngIf="engineerForm.controls['hobbies'].hasError('required')">
+    <mat-error *ngIf="hobbies.hasError('required')">
       Need <strong>at least</strong> one hobby
     </mat-error>
     <ul class="hobbies-list">
-      <li
-        *ngFor="
-          let hobby of engineerForm.controls['hobbies'].value;
-          let i = index
-        ">
-        <h3>{{ hobby.name }}</h3>
+      <li *ngFor="let hobby of hobbies.value; let i = index">
+        <h3>{{ hobby.name | titlecase }}</h3>
         <p>{{ hobby.duration }}</p>
         <button
           mat-icon-button

@@ -11,7 +11,7 @@
       matInput
       type="text"
       formControlName="name" />
-    <mat-error *ngIf="hobbyForm.controls['name'].hasError('required')">
+    <mat-error *ngIf="hobbyForm.get('name')?.hasError('required')">
       Name is <strong>required</strong>
     </mat-error>
   </mat-form-field>
@@ -22,7 +22,7 @@
       matInput
       type="text"
       formControlName="duration" />
-    <mat-error *ngIf="hobbyForm.controls['duration'].hasError('required')">
+    <mat-error *ngIf="hobbyForm.get('duration')?.hasError('required')">
       Duration is <strong>required</strong>
     </mat-error>
   </mat-form-field>
