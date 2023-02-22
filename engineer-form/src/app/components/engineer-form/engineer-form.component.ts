@@ -1,6 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import {
   AbstractControl,
+  FormArray,
   FormBuilder,
   FormControl,
   FormGroup,
@@ -9,7 +10,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { BehaviorSubject, Observable, delay, map, of } from 'rxjs';
+import { BehaviorSubject, delay, map, Observable, of, take } from 'rxjs';
 import { composeFormObject } from 'src/app/utils/composeFormObject';
 
 import { HobbyDialogComponent } from './hobby-dialog/hobby-dialog.component';
@@ -37,18 +38,18 @@ export class EngineerFormComponent implements OnDestroy {
     this.engineerForm = this.fb.group({
       firstName: ['Some', Validators.required],
       lastName: ['Name', Validators.required],
-      dateOfBirth: ['', Validators.required],
+      dateOfBirth: [new Date(), Validators.required],
       framework: ['', Validators.required],
       frameworkVersion: ['', Validators.required],
       email: [
-        'test@test.testt',
+        'test@test.te',
         [
           Validators.required,
           Validators.pattern(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g),
         ],
         this.asyncEmailValidator,
       ],
-      hobbies: [[{ name: 'sport', duration: '2 month' }], Validators.required],
+      hobbies: this.fb.array([], Validators.required),
     });
   }
 
@@ -57,12 +58,14 @@ export class EngineerFormComponent implements OnDestroy {
   }
 
   onSubmit(formDirective: FormGroupDirective): void {
-    if (!formDirective.valid) {
-      console.log('There are errors still');
-      return;
+    if (this.engineerForm.valid) {
+      console.log(composeFormObject(this.engineerForm));
+      (<FormArray>this.hobbies).clear();
+      this.engineerForm.reset();
+      formDirective.resetForm();
+    } else {
+      console.log('Entered data is incorrect, review it again');
     }
-
-    console.log(composeFormObject(formDirective.form));
   }
 
   onHobbyAdd(): void {
@@ -71,15 +74,20 @@ export class EngineerFormComponent implements OnDestroy {
       width: 'auto',
     });
 
-    hobbyDialogRef.afterClosed().subscribe((result) => {
+    hobbyDialogRef.afterClosed().subscribe((result: IHobby | undefined) => {
       if (result) {
-        this.hobbies.setValue([...this.hobbies.value, result]);
+        (<FormArray>this.engineerForm.get('hobbies')).push(
+          this.fb.group({
+            name: [result.name, Validators.required],
+            duration: [result.duration, Validators.required],
+          }),
+        );
       }
     });
   }
 
   onDeleteHobby(index: number): void {
-    this.hobbies.setValue(this.hobbies.value.filter((_, i) => i !== index));
+    (<FormArray>this.engineerForm.get('hobbies')).removeAt(index);
   }
 
   asyncEmailValidator(
@@ -93,7 +101,10 @@ export class EngineerFormComponent implements OnDestroy {
 
   setTechnologyVersion(framework: string): void {
     of(this.serverData)
-      .pipe(map((data) => data[framework as keyof typeof this.serverData]))
+      .pipe(
+        take(1),
+        map((data) => data[framework as keyof typeof this.serverData]),
+      )
       .subscribe((value) => this.technologyVersions$.next(value));
   }
 
