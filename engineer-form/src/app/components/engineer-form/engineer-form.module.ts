@@ -9,12 +9,17 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { EmailValidatorDirective } from 'src/app/directives/email-validator.directive';
 
 import { EngineerFormComponent } from './engineer-form.component';
 import { HobbyDialogComponent } from './hobby-dialog/hobby-dialog.component';
 
 @NgModule({
-  declarations: [EngineerFormComponent, HobbyDialogComponent],
+  declarations: [
+    EngineerFormComponent,
+    HobbyDialogComponent,
+    EmailValidatorDirective,
+  ],
   imports: [
     CommonModule,
     ReactiveFormsModule,

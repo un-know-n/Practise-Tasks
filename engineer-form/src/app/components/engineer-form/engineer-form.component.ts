@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormArray,
@@ -6,13 +6,13 @@ import {
   FormControl,
   FormGroup,
   FormGroupDirective,
-  ValidationErrors,
   Validators,
 } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { BehaviorSubject, delay, map, Observable, of, take } from 'rxjs';
+import { distinctUntilChanged, Subscription } from 'rxjs';
 import { composeFormObject } from 'src/app/utils/composeFormObject';
 
+import { EngineerFormService } from './engineer-form.service';
 import { HobbyDialogComponent } from './hobby-dialog/hobby-dialog.component';
 
 export interface IHobby {
@@ -25,16 +25,16 @@ export interface IHobby {
   templateUrl: './engineer-form.component.html',
   styleUrls: ['./engineer-form.component.css'],
 })
-export class EngineerFormComponent implements OnDestroy {
+export class EngineerFormComponent implements OnInit, OnDestroy {
   engineerForm: FormGroup;
-  technologyVersions$ = new BehaviorSubject<string[]>([]);
-  serverData = {
-    angular: ['1.1.1', '1.2.1', '1.3.3'],
-    react: ['2.1.2', '3.2.4', '4.3.1'],
-    vue: ['3.3.1', '5.2.1', '5.1.3'],
-  };
+  technologySubscription$!: Subscription;
+  availableTechnologies = ['angular', 'vue', 'react'];
 
-  constructor(public dialog: MatDialog, private fb: FormBuilder) {
+  constructor(
+    public dialog: MatDialog,
+    private fb: FormBuilder,
+    public formService: EngineerFormService,
+  ) {
     this.engineerForm = this.fb.group({
       firstName: ['Some', Validators.required],
       lastName: ['Name', Validators.required],
@@ -47,14 +47,23 @@ export class EngineerFormComponent implements OnDestroy {
           Validators.required,
           Validators.pattern(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g),
         ],
-        this.asyncEmailValidator,
       ],
       hobbies: this.fb.array([], Validators.required),
     });
   }
 
+  ngOnInit(): void {
+    this.technologySubscription$ = this.engineerForm.controls[
+      'framework'
+    ].valueChanges
+      .pipe(distinctUntilChanged())
+      .subscribe((value) => {
+        this.formService.getTechnologyVersion(value);
+      });
+  }
+
   ngOnDestroy(): void {
-    this.technologyVersions$.unsubscribe();
+    this.technologySubscription$.unsubscribe();
   }
 
   onSubmit(formDirective: FormGroupDirective): void {
@@ -76,7 +85,7 @@ export class EngineerFormComponent implements OnDestroy {
 
     hobbyDialogRef.afterClosed().subscribe((result: IHobby | undefined) => {
       if (result) {
-        (<FormArray>this.engineerForm.get('hobbies')).push(
+        (<FormArray>this.hobbies).push(
           this.fb.group({
             name: [result.name, Validators.required],
             duration: [result.duration, Validators.required],
@@ -87,33 +96,11 @@ export class EngineerFormComponent implements OnDestroy {
   }
 
   onDeleteHobby(index: number): void {
-    (<FormArray>this.engineerForm.get('hobbies')).removeAt(index);
+    (<FormArray>this.hobbies).removeAt(index);
   }
 
-  asyncEmailValidator(
-    control: FormControl,
-  ): Observable<ValidationErrors | null> {
-    return of(control.value).pipe(
-      delay(300),
-      map((value) => (value === 'test@test.test' ? { invalid: true } : null)),
-    );
-  }
-
-  setTechnologyVersion(framework: string): void {
-    of(this.serverData)
-      .pipe(
-        take(1),
-        map((data) => data[framework as keyof typeof this.serverData]),
-      )
-      .subscribe((value) => this.technologyVersions$.next(value));
-  }
-
-  get framework(): AbstractControl<string> {
-    return <FormControl>this.engineerForm.get('framework');
-  }
-
-  get email(): AbstractControl<string> {
-    return <FormControl>this.engineerForm.get('email');
+  getFieldError(controlName: string, error = 'required') {
+    return this.engineerForm.controls[controlName].hasError(error);
   }
 
   get hobbies(): AbstractControl<IHobby[]> {

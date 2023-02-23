@@ -12,7 +12,7 @@
       type="text"
       formControlName="firstName" />
 
-    <mat-error *ngIf="engineerForm.get('firstName')?.hasError('required')">
+    <mat-error *ngIf="getFieldError('firstName')">
       Name is <strong>required</strong>
     </mat-error>
   </mat-form-field>
@@ -23,7 +23,7 @@
       matInput
       type="text"
       formControlName="lastName" />
-    <mat-error *ngIf="engineerForm.get('lastName')?.hasError('required')">
+    <mat-error *ngIf="getFieldError('lastName')">
       Surname is <strong>required</strong>
     </mat-error>
   </mat-form-field>
@@ -40,7 +40,7 @@
       [for]="birthPicker">
     </mat-datepicker-toggle>
     <mat-datepicker #birthPicker></mat-datepicker>
-    <mat-error *ngIf="engineerForm.get('dateOfBirth')?.hasError('required')">
+    <mat-error *ngIf="getFieldError('dateOfBirth')">
       Birth date is <strong>required</strong>
     </mat-error>
   </mat-form-field>
@@ -49,32 +49,30 @@
     <mat-label>Framework</mat-label>
     <mat-select
       #technology
-      formControlName="framework"
-      (selectionChange)="setTechnologyVersion(technology.value)">
+      formControlName="framework">
       <mat-option
-        *ngFor="let technology of serverData | keyvalue"
-        [value]="technology.key"
-        >{{ technology.key | titlecase }}</mat-option
+        *ngFor="let technology of availableTechnologies"
+        [value]="technology"
+        >{{ technology | titlecase }}</mat-option
       >
     </mat-select>
-    <mat-error *ngIf="framework.hasError('required')">
+    <mat-error *ngIf="getFieldError('framework')">
       Framework is <strong>required</strong>
     </mat-error>
   </mat-form-field>
 
   <mat-form-field
     appearance="fill"
-    *ngIf="framework.valid">
+    *ngIf="!getFieldError('framework')">
     <mat-label>Technology version</mat-label>
     <mat-select formControlName="frameworkVersion">
       <mat-option
-        *ngFor="let version of technologyVersions$ | async"
+        *ngFor="let version of formService.technologyVersions$ | async"
         [value]="version"
         >{{ version }}</mat-option
       >
     </mat-select>
-    <mat-error
-      *ngIf="engineerForm.get('frameworkVersion')?.hasError('required')">
+    <mat-error *ngIf="getFieldError('frameworkVersion')">
       Version is <strong>required</strong>
     </mat-error>
   </mat-form-field>
@@ -83,16 +81,17 @@
     <mat-label>Email</mat-label>
     <input
       matInput
+      appEmailValidator
       type="text"
       formControlName="email" />
-    <mat-error *ngIf="email.hasError('pattern')">
+    <mat-error *ngIf="getFieldError('email', 'pattern')">
       Please enter a <strong>valid</strong> email address
     </mat-error>
-    <mat-error *ngIf="email.hasError('required')">
+    <mat-error *ngIf="getFieldError('email')">
       Email is <strong>required</strong>
     </mat-error>
-    <mat-error *ngIf="email.hasError('invalid')">
-      Email has <strong>already</strong> been taken
+    <mat-error *ngIf="getFieldError('email', 'invalid')">
+      Email has <strong>already</strong> been used
     </mat-error>
   </mat-form-field>
 
@@ -107,7 +106,7 @@
         <mat-icon>add</mat-icon>
       </button>
     </div>
-    <mat-error *ngIf="hobbies.hasError('required')">
+    <mat-error *ngIf="getFieldError('hobbies')">
       Need <strong>at least</strong> one hobby
     </mat-error>
     <ul class="hobbies-list">
