@@ -1,4 +1,4 @@
-.engineerForm {
+.engineer-form {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -8,7 +8,7 @@
   justify-items: center;
 }
 
-.engineerForm > * {
+.engineer-form > * {
   width: 100%;
 }
 

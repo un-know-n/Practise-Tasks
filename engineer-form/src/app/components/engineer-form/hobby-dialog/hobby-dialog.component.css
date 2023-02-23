@@ -1,4 +1,4 @@
-.hobbyForm {
+.hobby-form {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -6,6 +6,6 @@
   justify-items: center;
 }
 
-.hobbyForm > * {
+.hobby-form > * {
   width: 100%;
 }
