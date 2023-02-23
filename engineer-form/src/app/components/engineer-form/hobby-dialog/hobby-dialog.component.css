@@ -1,0 +1,11 @@
+.hobby-form {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-items: center;
+}
+
+.hobby-form > * {
+  width: 100%;
+}

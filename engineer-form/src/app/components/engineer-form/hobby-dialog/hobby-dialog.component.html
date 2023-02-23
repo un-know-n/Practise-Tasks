@@ -1,0 +1,45 @@
+<form
+  [formGroup]="hobbyForm"
+  class="hobby-form"
+  (ngSubmit)="onSubmit()"
+  mat-dialog-content>
+  <p>Describe your hobby</p>
+
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input
+      matInput
+      type="text"
+      formControlName="name" />
+    <mat-error *ngIf="hobbyForm.get('name')?.hasError('required')">
+      Name is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Duration</mat-label>
+    <input
+      matInput
+      type="text"
+      formControlName="duration" />
+    <mat-error *ngIf="hobbyForm.get('duration')?.hasError('required')">
+      Duration is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <div mat-dialog-actions>
+    <button
+      mat-raised-button
+      type="button"
+      (click)="onClose()">
+      Cancel
+    </button>
+    <button
+      mat-raised-button
+      type="submit"
+      color="primary"
+      cdkFocusInitial>
+      Save
+    </button>
+  </div>
+</form>
