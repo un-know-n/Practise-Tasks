@@ -9,29 +9,24 @@
     <mat-select
       formArrayName="breed"
       (selectionChange)="breed.setValue([$event.value])">
+      <mat-option [value]="{ id: '', name: '' }">--</mat-option>
       <mat-option
         *ngFor="let breed of allBreeds$ | async"
         [value]="breed"
         >{{ breed.name }}</mat-option
       >
     </mat-select>
-    <mat-error *ngIf="getError('breed')"
-      >Choose the breed to filter by</mat-error
-    >
   </mat-form-field>
 
   <mat-form-field appearance="fill">
     <mat-label>Quantity</mat-label>
-    <mat-select formControlName="limit">
+    <mat-select [formControl]="limit">
       <mat-option
         *ngFor="let limit of [5, 10, 15, 20, 25, 50]"
         [value]="limit.toString()"
         >{{ limit }}</mat-option
       >
     </mat-select>
-    <mat-error *ngIf="getError('limit')"
-      >Set the quantity to filter the photos</mat-error
-    >
   </mat-form-field>
 
   <button
