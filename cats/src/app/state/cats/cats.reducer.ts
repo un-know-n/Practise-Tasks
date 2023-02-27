@@ -1,7 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 
 import {
-  loadBreeds,
   loadBreedsFailure,
   loadBreedsSuccess,
   loadCats,
@@ -41,8 +40,6 @@ export const catsReducer = createReducer(
     status: 'error',
     error,
   })),
-  // Trigger breeds loading
-  on(loadBreeds, (state) => ({ ...state, status: 'loading' })),
   // Handle successfully loaded breeds
   on(loadBreedsSuccess, (state, { breeds }) => ({
     ...state,

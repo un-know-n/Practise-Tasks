@@ -18,8 +18,6 @@ export const loadCatsFailure = createAction(
   props<{ error: string }>(),
 );
 
-export const loadBreeds = createAction('[Cats Page] Load Breeds');
-
 export const loadBreedsSuccess = createAction(
   '[Cats Page] Load Breeds Success',
   props<{ breeds: Breed[] }>(),

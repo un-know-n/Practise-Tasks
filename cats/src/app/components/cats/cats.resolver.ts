@@ -7,7 +7,10 @@ import {
 import { Store } from '@ngrx/store';
 import { Observable, tap } from 'rxjs';
 import { AppState } from 'src/app/state/app.state';
-import { loadBreedsSuccess } from 'src/app/state/cats/cats.actions';
+import {
+  loadBreedsFailure,
+  loadBreedsSuccess,
+} from 'src/app/state/cats/cats.actions';
 import { Breed } from 'src/app/state/cats/cats.model';
 
 import { CatsService } from './cats.service';
@@ -24,12 +27,12 @@ export class CatsResolver implements Resolve<Breed[]> {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot,
   ): Observable<Breed[]> {
-    return this.catsService
-      .getBreeds()
-      .pipe(
-        tap((value) =>
+    return this.catsService.getBreeds().pipe(
+      tap({
+        next: (value) =>
           this.store.dispatch(loadBreedsSuccess({ breeds: value })),
-        ),
-      );
+        error: (error) => this.store.dispatch(loadBreedsFailure({ error })),
+      }),
+    );
   }
 }
