@@ -8,7 +8,6 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 
-import { CatsRoutingModule } from './cats-routing.module';
 import { CatsComponent } from './cats.component';
 import { CatsInterceptor } from './cats.interceptor';
 
@@ -19,7 +18,6 @@ import { CatsInterceptor } from './cats.interceptor';
     { provide: HTTP_INTERCEPTORS, useClass: CatsInterceptor, multi: true },
   ],
   imports: [
-    CatsRoutingModule,
     CommonModule,
     ReactiveFormsModule,
     MatButtonModule,
