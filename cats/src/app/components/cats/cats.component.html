@@ -1,0 +1,65 @@
+<h1 class="main-title">{{ 'Cat api filter' | titlecase }}</h1>
+
+<form
+  [formGroup]="catsForm"
+  (ngSubmit)="onSubmit()"
+  class="cats-form">
+  <mat-form-field appearance="fill">
+    <mat-label>Choose wanted breed</mat-label>
+    <mat-select
+      formArrayName="breed"
+      (selectionChange)="breed.setValue([$event.value])">
+      <mat-option [value]="{ id: '', name: '' }">--</mat-option>
+      <mat-option
+        *ngFor="let breed of allBreeds$ | async"
+        [value]="breed"
+        >{{ breed.name }}</mat-option
+      >
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Quantity</mat-label>
+    <mat-select [formControl]="limit">
+      <mat-option
+        *ngFor="let limit of [5, 10, 15, 20, 25, 50]"
+        [value]="limit.toString()"
+        >{{ limit }}</mat-option
+      >
+    </mat-select>
+  </mat-form-field>
+
+  <button
+    type="submit"
+    mat-raised-button
+    color="primary">
+    Find
+  </button>
+</form>
+
+<div
+  *ngIf="checkStatus('loading') | async"
+  class="spinner-wrapper">
+  <mat-spinner diameter="100"></mat-spinner>
+</div>
+
+<div
+  *ngIf="checkStatus('error') | async"
+  class="error">
+  <p>{{ error$ | async }}</p>
+</div>
+
+<mat-grid-list
+  *ngIf="checkStatus('success') | async"
+  style="margin-top: 30px"
+  cols="3">
+  <mat-grid-tile *ngFor="let cat of allCats$ | async">
+    <mat-card style="padding: 5px; margin: 15px 0; background-color: white">
+      <img
+        mat-card-xl-image
+        style="object-fit: cover"
+        [src]="cat.url"
+        [alt]="cat.id" />
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>
