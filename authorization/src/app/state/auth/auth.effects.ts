@@ -1,0 +1,51 @@
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { catchError, from, map, of, switchMap, tap } from 'rxjs';
+import { AuthService } from 'src/app/shared/services/auth.service';
+
+import { AuthActions } from './auth.actions';
+
+@Injectable()
+export class AuthEffects {
+  constructor(
+    private actions$: Actions,
+    private authService: AuthService,
+    private router: Router,
+  ) {}
+
+  loadUser$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(AuthActions.loadUser),
+      switchMap(
+        ({ email, password }: ReturnType<typeof AuthActions.loadUser>) =>
+          from(this.authService.login({ email, password })).pipe(
+            map(
+              (credentials) =>
+                AuthActions.loadUserSuccess({
+                  firstName: credentials.first_name,
+                  lastName: credentials.last_name,
+                  token: credentials.token,
+                  isAdmin: credentials.role === 'Admin',
+                }),
+              catchError((error: string) =>
+                of(AuthActions.loadUserFailure({ error })),
+              ),
+            ),
+          ),
+      ),
+    );
+  });
+
+  loginRedirect$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(AuthActions.loadUserSuccess),
+        tap(() => {
+          this.router.navigate(['/']);
+        }),
+      );
+    },
+    { dispatch: false },
+  );
+}
