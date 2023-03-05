@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AdminPanelComponent } from './pages/admin-panel/admin-panel.component';
 import { AssessmentComponent } from './pages/assessment/assessment.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { DashboardResolver } from './pages/dashboard/dashboard.resolver';
 import { LayoutComponent } from './shared/components/layout/layout.component';
 
 const routes: Routes = [
@@ -13,7 +13,14 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: DashboardComponent,
+        loadChildren: () =>
+          import('./pages/dashboard/dashboard.module').then(
+            (m) => m.DashboardModule,
+          ),
+
+        resolve: {
+          dashboard: DashboardResolver,
+        },
       },
       {
         path: 'admin-panel',

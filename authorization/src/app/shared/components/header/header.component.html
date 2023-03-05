@@ -1,1 +1,30 @@
-<p>header works!</p>
+<mat-toolbar class="header">
+  <div class="header-title">
+    <a routerLink="/">
+      <span>{{ name$ | async }}</span>
+    </a>
+  </div>
+
+  <div class="header-buttons">
+    <a
+      routerLink="/admin-panel"
+      style="text-decoration: none">
+      <button
+        *ngIf="isAdmin$ | async"
+        mat-stroked-button
+        color="primary"
+        style="margin-right: 15px">
+        Admin panel
+        <mat-icon>admin_panel_settings</mat-icon>
+      </button>
+    </a>
+
+    <button
+      mat-stroked-button
+      (click)="onLogOut()"
+      color="warn">
+      Log out
+      <mat-icon>logout</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>

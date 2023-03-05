@@ -10,7 +10,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 
 @NgModule({
   declarations: [],
-
   exports: [
     MatTableModule,
     MatProgressSpinnerModule,

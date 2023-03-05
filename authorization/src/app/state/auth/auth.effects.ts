@@ -48,4 +48,16 @@ export class AuthEffects {
     },
     { dispatch: false },
   );
+
+  logoutRedirect$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(AuthActions.eraseUser),
+        tap(() => {
+          this.router.navigate(['/auth']);
+        }),
+      );
+    },
+    { dispatch: false },
+  );
 }

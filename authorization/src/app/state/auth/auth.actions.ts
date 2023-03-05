@@ -9,5 +9,6 @@ export const AuthActions = createActionGroup({
     'Load User Success':
       props<Pick<AuthState, 'firstName' | 'lastName' | 'isAdmin' | 'token'>>(),
     'Load User Failure': props<{ error: string }>(),
+    'Erase User': props<any>(),
   },
 });
