@@ -2,7 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
-import { IAssessmentReport, IDashboardItem } from '../models/data.model';
+import {
+  IAdminPanelItem,
+  IAssessmentReport,
+  IDashboardItem,
+} from '../models/data.model';
 
 @Injectable({
   providedIn: 'root',
@@ -112,5 +116,132 @@ export class DataService {
     //   `${environment.API_URL}/userassessments/graph`,
     //   { params: { id } },
     // );
+  }
+
+  getUsers(): Observable<IAdminPanelItem[]> {
+    return of([
+      {
+        name: 'John',
+        lastName: 'Doe',
+        dateOfBirth: '1990-01-01',
+        education: 'Bachelor of Science',
+        role: 'Developer',
+        position: 'Front-end',
+      },
+      {
+        name: 'Jane',
+        lastName: 'Doe',
+        dateOfBirth: '1992-02-02',
+        education: 'Bachelor of Arts',
+        role: 'Developer',
+        position: 'Back-end',
+      },
+      {
+        name: 'Alice',
+        lastName: 'Smith',
+        dateOfBirth: '1985-03-03',
+        education: 'Master of Science',
+        role: 'Designer',
+        position: 'UI/UX',
+      },
+      {
+        name: 'Bob',
+        lastName: 'Johnson',
+        dateOfBirth: '1987-04-04',
+        education: 'Master of Arts',
+        role: 'Manager',
+        position: 'Project',
+      },
+      {
+        name: 'Sarah',
+        lastName: 'Lee',
+        dateOfBirth: '1991-05-05',
+        education: 'Bachelor of Science',
+        role: 'Developer',
+        position: 'Full-stack',
+      },
+      {
+        name: 'Mike',
+        lastName: 'Brown',
+        dateOfBirth: '1988-06-06',
+        education: 'Master of Science',
+        role: 'Developer',
+        position: 'Back-end',
+      },
+      {
+        name: 'Lisa',
+        lastName: 'Jones',
+        dateOfBirth: '1989-07-07',
+        education: 'Bachelor of Arts',
+        role: 'Designer',
+        position: 'Graphic',
+      },
+      {
+        name: 'David',
+        lastName: 'Williams',
+        dateOfBirth: '1986-08-08',
+        education: 'Master of Arts',
+        role: 'Manager',
+        position: 'Technical',
+      },
+      {
+        name: 'Emily',
+        lastName: 'Taylor',
+        dateOfBirth: '1993-09-09',
+        education: 'Bachelor of Science',
+        role: 'Developer',
+        position: 'Front-end',
+      },
+      {
+        name: 'Robert',
+        lastName: 'Miller',
+        dateOfBirth: '1990-10-10',
+        education: 'Master of Science',
+        role: 'Developer',
+        position: 'Full-stack',
+      },
+      {
+        name: 'Samantha',
+        lastName: 'Wilson',
+        dateOfBirth: '1987-11-11',
+        education: 'Bachelor of Arts',
+        role: 'Designer',
+        position: 'Web',
+      },
+      {
+        name: 'Kevin',
+        lastName: 'Davis',
+        dateOfBirth: '1989-12-12',
+        education: 'Master of Arts',
+        role: 'Manager',
+        position: 'Operations',
+      },
+      {
+        name: 'Olivia',
+        lastName: 'Garcia',
+        dateOfBirth: '1991-01-13',
+        education: 'Bachelor of Science',
+        role: 'Developer',
+        position: 'Back-end',
+      },
+      {
+        name: 'Jacob',
+        lastName: 'Rodriguez',
+        dateOfBirth: '1988-02-14',
+        education: 'Master of Science',
+        role: 'Developer',
+        position: 'Front-end',
+      },
+      {
+        name: 'Isabella',
+        lastName: 'Martinez',
+        dateOfBirth: '1992-03-15',
+        education: 'Bachelor of Arts',
+        role: 'Designer',
+        position: 'UI/UX',
+      },
+    ]);
+
+    //return this.http.get<IAdminPanelItem[]>(`${environment.API_URL}/users`);
   }
 }

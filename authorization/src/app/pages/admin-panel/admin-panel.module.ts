@@ -3,18 +3,18 @@ import { NgModule } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { RouterModule, Routes } from '@angular/router';
 
-import { DashboardComponent } from './dashboard.component';
+import { AdminPanelComponent } from './admin-panel.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: DashboardComponent,
+    component: AdminPanelComponent,
   },
 ];
 
 @NgModule({
-  declarations: [DashboardComponent],
+  declarations: [AdminPanelComponent],
   imports: [CommonModule, MatTableModule, RouterModule.forChild(routes)],
-  exports: [DashboardComponent],
+  exports: [AdminPanelComponent],
 })
-export class DashboardModule {}
+export class AdminPanelModule {}

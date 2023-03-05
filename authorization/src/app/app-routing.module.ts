@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AdminPanelComponent } from './pages/admin-panel/admin-panel.component';
+import { AdminPanelResolver } from './pages/admin-panel/admin-panel.resolver';
 import { AssessmentResolver } from './pages/assessment/assessment.resolver';
 import { DashboardResolver } from './pages/dashboard/dashboard.resolver';
 import { LayoutComponent } from './shared/components/layout/layout.component';
@@ -23,7 +23,13 @@ const routes: Routes = [
       },
       {
         path: 'admin-panel',
-        component: AdminPanelComponent,
+        loadChildren: () =>
+          import('./pages/admin-panel/admin-panel.module').then(
+            (m) => m.AdminPanelModule,
+          ),
+        resolve: {
+          users: AdminPanelResolver,
+        },
       },
       {
         path: 'assessment/:id',
