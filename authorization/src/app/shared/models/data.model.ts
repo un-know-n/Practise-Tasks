@@ -24,3 +24,8 @@ export interface IAdminPanelItem {
   role: string;
   position: string;
 }
+
+export interface IBarFormat {
+  name: string;
+  value: number;
+}

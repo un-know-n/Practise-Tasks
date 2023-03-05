@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
-import { IDashboardItem } from '../models/data.model';
+import { IAssessmentReport, IDashboardItem } from '../models/data.model';
 
 @Injectable({
   providedIn: 'root',
@@ -95,6 +95,22 @@ export class DataService {
     ]);
     // return this.http.get<IDashboardItem[]>(
     //   `${environment.API_URL}/userassessments`,
+    // );
+  }
+
+  getDashboardAssessment(id: string | number): Observable<IAssessmentReport> {
+    return of({
+      data: {
+        agreeableness: 15.678,
+        drive: 17.891,
+        luck: 11.345,
+        openness: 22.456,
+      },
+      type: 'bar',
+    });
+    // return this.http.get<IAssessmentReport>(
+    //   `${environment.API_URL}/userassessments/graph`,
+    //   { params: { id } },
     // );
   }
 }

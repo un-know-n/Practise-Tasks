@@ -1,1 +1,11 @@
-<p>assessment works!</p>
+<div class="chart-wrapper">
+  <ngx-charts-bar-vertical
+    [view]="[700, 400]"
+    [scheme]="colorScheme"
+    [results]="assessmentData"
+    [gradient]="false"
+    [xAxis]="true"
+    [yAxis]="true"
+    [legend]="true">
+  </ngx-charts-bar-vertical>
+</div>

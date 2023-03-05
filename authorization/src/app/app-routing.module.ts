@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AdminPanelComponent } from './pages/admin-panel/admin-panel.component';
-import { AssessmentComponent } from './pages/assessment/assessment.component';
+import { AssessmentResolver } from './pages/assessment/assessment.resolver';
 import { DashboardResolver } from './pages/dashboard/dashboard.resolver';
 import { LayoutComponent } from './shared/components/layout/layout.component';
 
@@ -17,7 +17,6 @@ const routes: Routes = [
           import('./pages/dashboard/dashboard.module').then(
             (m) => m.DashboardModule,
           ),
-
         resolve: {
           dashboard: DashboardResolver,
         },
@@ -28,7 +27,13 @@ const routes: Routes = [
       },
       {
         path: 'assessment/:id',
-        component: AssessmentComponent,
+        loadChildren: () =>
+          import('./pages/assessment/assessment.module').then(
+            (m) => m.AssessmentModule,
+          ),
+        resolve: {
+          assessment: AssessmentResolver,
+        },
       },
     ],
   },
