@@ -29,6 +29,7 @@
     "@ngrx/store-devtools": "^15.3.0",
     "@swimlane/ngx-charts": "^20.1.2",
     "ci": "^2.2.0",
+    "ngrx-store-localstorage": "^15.0.0",
     "normalize.css": "^8.0.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { first } from 'rxjs';
 import { IDashboardItem } from 'src/app/shared/models/data.model';
 
 @Component({
@@ -14,7 +15,9 @@ export class DashboardComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.dashboardData = this.activatedRoute.snapshot.data['dashboard'];
+    this.activatedRoute.data
+      .pipe(first())
+      .subscribe(({ dashboard }) => (this.dashboardData = dashboard));
     this.displayedColumns = Object.keys(this.dashboardData[0]);
   }
 }

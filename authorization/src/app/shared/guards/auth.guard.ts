@@ -46,9 +46,10 @@ export class AuthGuard implements CanActivate, CanActivateChild {
       .select(selectToken)
       .pipe(first())
       .subscribe((value) => (hasToken = Boolean(value)));
+
     if (hasToken) return true;
     else {
-      this.router.parseUrl('/auth');
+      this.router.navigateByUrl('/auth');
       return false;
     }
   }

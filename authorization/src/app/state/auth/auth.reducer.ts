@@ -12,15 +12,6 @@ export interface AuthState {
 }
 
 export const initialState: AuthState = {
-  firstName: 'Admin',
-  lastName: 'Deepersignals',
-  isAdmin: true,
-  token: 'QWRtaW5Vc2Vy',
-  error: null,
-  status: 'success',
-};
-
-const TEMPORARY_INITIAL_STATE: AuthState = {
   firstName: '',
   lastName: '',
   isAdmin: false,
@@ -47,5 +38,5 @@ export const authReducer = createReducer(
     error,
     status: 'error',
   })),
-  on(AuthActions.eraseUser, (state) => ({ ...TEMPORARY_INITIAL_STATE })),
+  on(AuthActions.eraseUser, (state) => ({ ...initialState })),
 );
