@@ -38,5 +38,5 @@ export const authReducer = createReducer(
     error,
     status: 'error',
   })),
-  on(AuthActions.eraseUser, (state) => ({ ...initialState })),
+  on(AuthActions.eraseUser, () => ({ ...initialState })),
 );

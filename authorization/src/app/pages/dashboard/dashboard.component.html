@@ -25,7 +25,9 @@
       <td
         mat-cell
         *matCellDef="let element">
-        <a [routerLink]="'/assessment/' + element.id">
+        <a
+          [routerLink]="'/assessment/' + element.id"
+          [state]="{ data: element }">
           {{ element.name }}
         </a>
       </td>
@@ -69,7 +71,7 @@
         <img
           [src]="element.image_url"
           [alt]="element.name"
-          style="max-width: 150px" />
+          style="max-width: 100px" />
       </td>
     </ng-container>
 

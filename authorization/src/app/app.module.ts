@@ -16,7 +16,10 @@ import { authReducer } from './state/auth/auth.reducer';
 export function localStorageSyncReducer(
   reducer: ActionReducer<any>,
 ): ActionReducer<any> {
-  return localStorageSync({ keys: ['auth'], rehydrate: true })(reducer);
+  return localStorageSync({
+    keys: [{ auth: ['firstName', 'lastName', 'isAdmin', 'token'] }],
+    rehydrate: true,
+  })(reducer);
 }
 const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
 

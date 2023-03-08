@@ -1,5 +1,9 @@
 <div class="chart-wrapper">
+  <h1>
+    {{ assessmentElement?.name }}
+  </h1>
   <ngx-charts-bar-vertical
+    class="assessment-chart"
     [view]="[700, 400]"
     [scheme]="colorScheme"
     [results]="assessmentData"

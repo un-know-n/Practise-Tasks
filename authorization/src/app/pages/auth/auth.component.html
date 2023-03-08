@@ -8,6 +8,12 @@
         [formGroup]="authForm"
         (ngSubmit)="onSubmit()"
         class="auth-form">
+        <p
+          *ngIf="error$ | async as error"
+          class="auth-error">
+          {{ error }}
+        </p>
+
         <mat-form-field>
           <mat-label>Your name</mat-label>
           <input
