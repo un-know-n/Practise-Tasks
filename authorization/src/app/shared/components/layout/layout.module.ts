@@ -5,8 +5,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
+import { AuthInterceptor } from 'src/app/_core/interceptors/auth.interceptor';
 
-import { AuthInterceptor } from '../../interceptors/auth.interceptor';
 import { HeaderComponent } from '../header/header.component';
 import { LayoutComponent } from './layout.component';
 

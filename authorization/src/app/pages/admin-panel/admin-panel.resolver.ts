@@ -5,8 +5,8 @@ import {
   RouterStateSnapshot,
 } from '@angular/router';
 import { Observable } from 'rxjs';
+import { DataService } from 'src/app/_core/services/data.service';
 import { IAdminPanelItem } from 'src/app/shared/models/data.model';
-import { DataService } from 'src/app/shared/services/data.service';
 
 @Injectable({
   providedIn: 'root',

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Color, ScaleType } from '@swimlane/ngx-charts';
 import { take } from 'rxjs';
+import { defaultColorScheme } from 'src/app/shared/constants/assessment';
 import { IBarFormat, IDashboardItem } from 'src/app/shared/models/data.model';
 import { transformAssessmentObject } from 'src/app/shared/utils/transformAssessmentObject';
 
@@ -13,12 +13,7 @@ import { transformAssessmentObject } from 'src/app/shared/utils/transformAssessm
 export class AssessmentComponent implements OnInit {
   public assessmentData!: IBarFormat[];
   public assessmentElement!: IDashboardItem;
-  public colorScheme: Color = {
-    name: 'AssessmentScheme',
-    selectable: true,
-    group: ScaleType.Ordinal,
-    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA'],
-  };
+  public colorScheme = defaultColorScheme;
 
   constructor(private activatedRoute: ActivatedRoute) {}
 
@@ -26,9 +21,8 @@ export class AssessmentComponent implements OnInit {
     this.assessmentData = transformAssessmentObject(
       this.activatedRoute.snapshot.data['assessment'],
     );
-    this.activatedRoute.paramMap.pipe(
-      // map(() => (this.assessmentElement = window.history.state['data'])),
-      take(1)
-    ).subscribe(() => this.assessmentElement = window.history.state['data']);
+    this.activatedRoute.paramMap
+      .pipe(take(1))
+      .subscribe(() => (this.assessmentElement = window.history.state['data']));
   }
 }

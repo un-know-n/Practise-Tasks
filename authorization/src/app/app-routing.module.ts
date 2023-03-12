@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { AdminGuard } from './_core/guards/admin.guard';
+import { AuthGuard } from './_core/guards/auth.guard';
 import { AdminPanelResolver } from './pages/admin-panel/admin-panel.resolver';
 import { AssessmentResolver } from './pages/assessment/assessment.resolver';
 import { DashboardResolver } from './pages/dashboard/dashboard.resolver';
 import { LayoutComponent } from './shared/components/layout/layout.component';
-import { AdminGuard } from './shared/guards/admin.guard';
-import { AuthGuard } from './shared/guards/auth.guard';
 
 const routes: Routes = [
   {

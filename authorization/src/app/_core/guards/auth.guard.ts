@@ -9,8 +9,9 @@ import {
 } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { first, Observable } from 'rxjs';
-import { AppState } from 'src/app/state/app.state';
-import { selectToken } from 'src/app/state/auth/auth.selectors';
+
+import { AppState } from '../state/app.state';
+import { selectToken } from '../state/auth/auth.selectors';
 
 @Injectable({
   providedIn: 'root',

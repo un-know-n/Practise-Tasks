@@ -7,11 +7,11 @@ import { ActionReducer, MetaReducer, StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { localStorageSync } from 'ngrx-store-localstorage';
 
+import { AuthEffects } from './_core/state/auth/auth.effects';
+import { authReducer } from './_core/state/auth/auth.reducer';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LayoutModule } from './shared/components/layout/layout.module';
-import { AuthEffects } from './state/auth/auth.effects';
-import { authReducer } from './state/auth/auth.reducer';
 
 export function localStorageSyncReducer(
   reducer: ActionReducer<any>,

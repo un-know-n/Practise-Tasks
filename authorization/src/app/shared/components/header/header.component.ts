@@ -1,8 +1,12 @@
 import { Component } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/state/app.state';
-import { AuthActions } from 'src/app/state/auth/auth.actions';
-import { selectIsAdmin, selectName } from 'src/app/state/auth/auth.selectors';
+import { AppState } from 'src/app/_core/state/app.state';
+import { AuthActions } from 'src/app/_core/state/auth/auth.actions';
+import {
+  selectIsAdmin,
+  selectName,
+} from 'src/app/_core/state/auth/auth.selectors';
 
 @Component({
   selector: 'app-header',
@@ -12,10 +16,21 @@ import { selectIsAdmin, selectName } from 'src/app/state/auth/auth.selectors';
 export class HeaderComponent {
   public name$ = this.store.select(selectName);
   public isAdmin$ = this.store.select(selectIsAdmin);
+  public currentRoute!: string;
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<AppState>, private router: Router) {
+    router.events.forEach((event) => {
+      if (event instanceof NavigationEnd) {
+        this.currentRoute = event.url;
+      }
+    });
+  }
 
-  onLogOut() {
+  checkPath(url: string): boolean {
+    return this.currentRoute === url;
+  }
+
+  onLogOut(): void {
     this.store.dispatch(AuthActions.eraseUser());
   }
 }

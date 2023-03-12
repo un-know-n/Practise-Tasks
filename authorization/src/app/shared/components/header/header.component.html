@@ -7,6 +7,7 @@
 
   <div class="header-buttons">
     <a
+      *ngIf="!checkPath('/admin-panel')"
       routerLink="/admin-panel"
       style="text-decoration: none">
       <button
@@ -20,7 +21,8 @@
     </a>
 
     <a
-      routerLink="/dashboard"
+      *ngIf="!checkPath('/')"
+      routerLink="/"
       style="text-decoration: none">
       <button
         mat-stroked-button

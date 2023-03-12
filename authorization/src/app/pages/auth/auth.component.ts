@@ -2,9 +2,12 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs';
-import { AppState } from 'src/app/state/app.state';
-import { AuthActions } from 'src/app/state/auth/auth.actions';
-import { selectError, selectStatus } from 'src/app/state/auth/auth.selectors';
+import { AppState } from 'src/app/_core/state/app.state';
+import { AuthActions } from 'src/app/_core/state/auth/auth.actions';
+import {
+  selectError,
+  selectStatus,
+} from 'src/app/_core/state/auth/auth.selectors';
 
 @Component({
   selector: 'app-auth',
