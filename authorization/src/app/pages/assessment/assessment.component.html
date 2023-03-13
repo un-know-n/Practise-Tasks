@@ -1,7 +1,8 @@
+<app-error [errorMessage]="error$ | async"></app-error>
 <div
   *ngIf="assessmentData$ | async as assessmentData"
   class="chart-wrapper">
-  <ng-container *ngIf="assessmentData.length">
+  <ng-container *ngIf="assessmentData.length; else loading">
     <ngx-charts-bar-vertical
       class="assessment-chart"
       [view]="[700, 400]"
@@ -14,3 +15,6 @@
     </ngx-charts-bar-vertical>
   </ng-container>
 </div>
+<ng-template #loading>
+  <app-loader></app-loader>
+</ng-template>

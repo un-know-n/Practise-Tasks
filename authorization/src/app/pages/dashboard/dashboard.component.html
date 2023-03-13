@@ -1,7 +1,8 @@
+<app-error [errorMessage]="error$ | async"></app-error>
 <div
   *ngIf="dashboardData$ | async as dashboardData"
   class="dashboard-wrapper">
-  <ng-container *ngIf="dashboardData.length">
+  <ng-container *ngIf="dashboardData.length; else loading">
     <table
       mat-table
       [dataSource]="dashboardData"
@@ -85,3 +86,6 @@
     </table>
   </ng-container>
 </div>
+<ng-template #loading>
+  <app-loader></app-loader>
+</ng-template>

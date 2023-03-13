@@ -6,6 +6,8 @@ import { ActionReducer, MetaReducer, StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { localStorageSync } from 'ngrx-store-localstorage';
 
+import { AuthService } from './services/auth.service';
+import { DataService } from './services/data.service';
 import { AuthEffects } from './state/auth/auth.effects';
 import { authReducer } from './state/auth/auth.reducer';
 import { DataEffects } from './state/data/data.effects';
@@ -33,5 +35,6 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     EffectsModule.forRoot([AuthEffects, DataEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
   ],
+  providers: [AuthService, DataService],
 })
 export class CoreModule {}

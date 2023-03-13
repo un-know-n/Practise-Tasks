@@ -7,9 +7,7 @@ import {
 } from 'src/app/shared/models/auth.model';
 import { environment } from 'src/environments/environment.development';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class AuthService {
   constructor(private http: HttpClient) {}
 

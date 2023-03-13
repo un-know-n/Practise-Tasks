@@ -3,7 +3,10 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/_core/state/app.state';
 import { DataActions } from 'src/app/_core/state/data/data.actions';
-import { selectFormattedAssessment } from 'src/app/_core/state/data/data.selectors';
+import {
+  selectError,
+  selectFormattedAssessment,
+} from 'src/app/_core/state/data/data.selectors';
 import { defaultColorScheme } from 'src/app/shared/constants/assessment';
 
 @Component({
@@ -13,6 +16,7 @@ import { defaultColorScheme } from 'src/app/shared/constants/assessment';
 })
 export class AssessmentComponent implements OnInit {
   public assessmentData$ = this.store.select(selectFormattedAssessment);
+  public error$ = this.store.select(selectError);
   public colorScheme = defaultColorScheme;
 
   constructor(private store: Store<AppState>, private router: ActivatedRoute) {}

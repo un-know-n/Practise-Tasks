@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/_core/state/app.state';
 import { DataActions } from 'src/app/_core/state/data/data.actions';
-import { selectDashboard } from 'src/app/_core/state/data/data.selectors';
+import {
+  selectDashboard,
+  selectError,
+} from 'src/app/_core/state/data/data.selectors';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,6 +14,7 @@ import { selectDashboard } from 'src/app/_core/state/data/data.selectors';
 })
 export class DashboardComponent implements OnInit {
   public dashboardData$ = this.store.select(selectDashboard);
+  public error$ = this.store.select(selectError);
   public displayedColumns = [
     'id',
     'name',

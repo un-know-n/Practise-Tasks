@@ -8,9 +8,7 @@ import {
 } from 'src/app/shared/models/data.model';
 import { environment } from 'src/environments/environment.development';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class DataService {
   constructor(private http: HttpClient) {}
 

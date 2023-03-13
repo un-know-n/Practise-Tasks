@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/_core/state/app.state';
 import { DataActions } from 'src/app/_core/state/data/data.actions';
-import { selectUsers } from 'src/app/_core/state/data/data.selectors';
+import {
+  selectError,
+  selectUsers,
+} from 'src/app/_core/state/data/data.selectors';
 
 @Component({
   selector: 'app-admin-panel',
@@ -11,6 +14,7 @@ import { selectUsers } from 'src/app/_core/state/data/data.selectors';
 })
 export class AdminPanelComponent implements OnInit {
   public users$ = this.store.select(selectUsers);
+  public error$ = this.store.select(selectError);
   public displayedColumns = [
     'name',
     'lastName',

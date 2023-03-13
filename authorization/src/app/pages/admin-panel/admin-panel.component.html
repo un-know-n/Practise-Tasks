@@ -1,7 +1,8 @@
+<app-error [errorMessage]="error$ | async"></app-error>
 <div
   *ngIf="users$ | async as users"
   class="admin-wrapper">
-  <ng-container *ngIf="users.length">
+  <ng-container *ngIf="users.length; else loading">
     <table
       mat-table
       [dataSource]="users"
@@ -93,3 +94,6 @@
     </table>
   </ng-container>
 </div>
+<ng-template #loading>
+  <app-loader></app-loader>
+</ng-template>
