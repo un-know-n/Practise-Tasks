@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { MatTableModule } from '@angular/material/table';
 import { RouterModule, Routes } from '@angular/router';
+import { MaterialModule } from 'src/app/shared/modules/material.module';
 
 import { AdminPanelComponent } from './admin-panel.component';
 
@@ -14,7 +14,7 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [AdminPanelComponent],
-  imports: [CommonModule, MatTableModule, RouterModule.forChild(routes)],
+  imports: [CommonModule, MaterialModule, RouterModule.forChild(routes)],
   exports: [AdminPanelComponent],
 })
 export class AdminPanelModule {}

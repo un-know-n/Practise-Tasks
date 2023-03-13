@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { IAdminPanelItem } from 'src/app/shared/models/data.model';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/_core/state/app.state';
+import { DataActions } from 'src/app/_core/state/data/data.actions';
+import { selectUsers } from 'src/app/_core/state/data/data.selectors';
 
 @Component({
   selector: 'app-admin-panel',
@@ -8,13 +10,19 @@ import { IAdminPanelItem } from 'src/app/shared/models/data.model';
   styleUrls: ['./admin-panel.component.css'],
 })
 export class AdminPanelComponent implements OnInit {
-  public adminData!: IAdminPanelItem[];
-  public displayedColumns!: string[];
+  public users$ = this.store.select(selectUsers);
+  public displayedColumns = [
+    'name',
+    'lastName',
+    'dateOfBirth',
+    'education',
+    'role',
+    'position',
+  ];
 
-  constructor(private activatedRoute: ActivatedRoute) {}
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.adminData = this.activatedRoute.snapshot.data['users'];
-    this.displayedColumns = Object.keys(this.adminData[0]);
+    this.store.dispatch(DataActions.loadUsers());
   }
 }

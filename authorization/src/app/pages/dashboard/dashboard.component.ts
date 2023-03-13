@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { first } from 'rxjs';
-import { IDashboardItem } from 'src/app/shared/models/data.model';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/_core/state/app.state';
+import { DataActions } from 'src/app/_core/state/data/data.actions';
+import { selectDashboard } from 'src/app/_core/state/data/data.selectors';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,15 +10,18 @@ import { IDashboardItem } from 'src/app/shared/models/data.model';
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
-  public dashboardData!: IDashboardItem[];
-  public displayedColumns!: string[];
+  public dashboardData$ = this.store.select(selectDashboard);
+  public displayedColumns = [
+    'id',
+    'name',
+    'users_resolved',
+    'active',
+    'image_url',
+  ];
 
-  constructor(private activatedRoute: ActivatedRoute) {}
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.activatedRoute.data
-      .pipe(first())
-      .subscribe(({ dashboard }) => (this.dashboardData = dashboard));
-    this.displayedColumns = Object.keys(this.dashboardData[0]);
+    this.store.dispatch(DataActions.loadDashboard());
   }
 }

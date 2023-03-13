@@ -1,15 +1,16 @@
-<div class="chart-wrapper">
-  <h1>
-    {{ assessmentElement?.name }}
-  </h1>
-  <ngx-charts-bar-vertical
-    class="assessment-chart"
-    [view]="[700, 400]"
-    [scheme]="colorScheme"
-    [results]="assessmentData"
-    [gradient]="false"
-    [xAxis]="true"
-    [yAxis]="true"
-    [legend]="true">
-  </ngx-charts-bar-vertical>
+<div
+  *ngIf="assessmentData$ | async as assessmentData"
+  class="chart-wrapper">
+  <ng-container *ngIf="assessmentData.length">
+    <ngx-charts-bar-vertical
+      class="assessment-chart"
+      [view]="[700, 400]"
+      [scheme]="colorScheme"
+      [results]="assessmentData"
+      [gradient]="false"
+      [xAxis]="true"
+      [yAxis]="true"
+      [legend]="true">
+    </ngx-charts-bar-vertical>
+  </ng-container>
 </div>

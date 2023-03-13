@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { MatTableModule } from '@angular/material/table';
 import { RouterModule, Routes } from '@angular/router';
+import { MaterialModule } from 'src/app/shared/modules/material.module';
 
 import { DashboardComponent } from './dashboard.component';
 
@@ -14,7 +14,7 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [DashboardComponent],
-  imports: [CommonModule, MatTableModule, RouterModule.forChild(routes)],
+  imports: [CommonModule, MaterialModule, RouterModule.forChild(routes)],
   exports: [DashboardComponent],
 })
 export class DashboardModule {}

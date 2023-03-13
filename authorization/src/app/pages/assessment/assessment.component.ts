@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { take } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/_core/state/app.state';
+import { DataActions } from 'src/app/_core/state/data/data.actions';
+import { selectFormattedAssessment } from 'src/app/_core/state/data/data.selectors';
 import { defaultColorScheme } from 'src/app/shared/constants/assessment';
-import { IBarFormat, IDashboardItem } from 'src/app/shared/models/data.model';
-import { transformAssessmentObject } from 'src/app/shared/utils/transformAssessmentObject';
 
 @Component({
   selector: 'app-assessment',
@@ -11,18 +12,14 @@ import { transformAssessmentObject } from 'src/app/shared/utils/transformAssessm
   styleUrls: ['./assessment.component.css'],
 })
 export class AssessmentComponent implements OnInit {
-  public assessmentData!: IBarFormat[];
-  public assessmentElement!: IDashboardItem;
+  public assessmentData$ = this.store.select(selectFormattedAssessment);
   public colorScheme = defaultColorScheme;
 
-  constructor(private activatedRoute: ActivatedRoute) {}
+  constructor(private store: Store<AppState>, private router: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.assessmentData = transformAssessmentObject(
-      this.activatedRoute.snapshot.data['assessment'],
+    this.store.dispatch(
+      DataActions.loadAssessment({ id: this.router.snapshot.params['id'] }),
     );
-    this.activatedRoute.paramMap
-      .pipe(take(1))
-      .subscribe(() => (this.assessmentElement = window.history.state['data']));
   }
 }
