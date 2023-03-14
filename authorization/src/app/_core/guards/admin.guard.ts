@@ -12,9 +12,7 @@ import { first, Observable } from 'rxjs';
 import { AppState } from '../state/app.state';
 import { selectIsAdmin } from '../state/auth/auth.selectors';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class AdminGuard implements CanActivate {
   constructor(private router: Router, private store: Store<AppState>) {}
 
@@ -26,6 +24,17 @@ export class AdminGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    return this.store.select(selectIsAdmin).pipe(first());
+    let isAdmin = false;
+
+    this.store
+      .select(selectIsAdmin)
+      .pipe(first())
+      .subscribe((value) => (isAdmin = Boolean(value)));
+
+    if (isAdmin) return true;
+    else {
+      this.router.navigateByUrl('/');
+      return false;
+    }
   }
 }

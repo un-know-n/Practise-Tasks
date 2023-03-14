@@ -13,9 +13,7 @@ import { first, Observable } from 'rxjs';
 import { AppState } from '../state/app.state';
 import { selectToken } from '../state/auth/auth.selectors';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class AuthGuard implements CanActivate, CanActivateChild {
   constructor(private router: Router, private store: Store<AppState>) {}
 
