@@ -7,6 +7,7 @@ import {
 
 import { DataActions } from './data.actions';
 
+// TODO: Output error in toast instead of NgRx store saving
 export interface DataState {
   users: IAdminPanelItem[];
   dashboard: IDashboardItem[];

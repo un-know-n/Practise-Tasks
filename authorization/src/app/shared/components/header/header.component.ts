@@ -26,6 +26,7 @@ export class HeaderComponent {
     });
   }
 
+  // TODO: Redo for stream
   checkPath(url: string): boolean {
     return this.currentRoute === url;
   }

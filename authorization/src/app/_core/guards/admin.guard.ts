@@ -1,13 +1,7 @@
 import { Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  CanActivate,
-  Router,
-  RouterStateSnapshot,
-  UrlTree,
-} from '@angular/router';
+import { CanActivate, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { first, Observable } from 'rxjs';
+import { first } from 'rxjs';
 
 import { AppState } from '../state/app.state';
 import { selectIsAdmin } from '../state/auth/auth.selectors';
@@ -16,16 +10,10 @@ import { selectIsAdmin } from '../state/auth/auth.selectors';
 export class AdminGuard implements CanActivate {
   constructor(private router: Router, private store: Store<AppState>) {}
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot,
-  ):
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree>
-    | boolean
-    | UrlTree {
+  canActivate(): boolean {
     let isAdmin = false;
 
+    // TODO: Make service for taking info from localStorage
     this.store
       .select(selectIsAdmin)
       .pipe(first())

@@ -1,14 +1,7 @@
 import { Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  CanActivate,
-  CanActivateChild,
-  Router,
-  RouterStateSnapshot,
-  UrlTree,
-} from '@angular/router';
+import { CanActivate, CanActivateChild, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { first, Observable } from 'rxjs';
+import { first } from 'rxjs';
 
 import { AppState } from '../state/app.state';
 import { selectToken } from '../state/auth/auth.selectors';
@@ -17,30 +10,18 @@ import { selectToken } from '../state/auth/auth.selectors';
 export class AuthGuard implements CanActivate, CanActivateChild {
   constructor(private router: Router, private store: Store<AppState>) {}
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot,
-  ):
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree>
-    | boolean
-    | UrlTree {
+  canActivate(): boolean {
     return this.checkToken();
   }
 
-  canActivateChild(
-    childRoute: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot,
-  ):
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree>
-    | boolean
-    | UrlTree {
+  canActivateChild(): boolean {
     return this.checkToken();
   }
 
   private checkToken() {
     let hasToken = false;
+
+    // TODO: Make service for taking info from localStorage
     this.store
       .select(selectToken)
       .pipe(first())
