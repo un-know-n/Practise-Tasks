@@ -1,0 +1,11 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-title > a {
+  text-decoration: none;
+  font-variant: small-caps;
+  font-weight: 700;
+}
