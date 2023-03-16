@@ -1,12 +1,17 @@
-
 {
   "root": true,
-  "ignorePatterns": ["projects/**/*"],
+  "ignorePatterns": [
+    "projects/**/*"
+  ],
   "overrides": [
     {
-      "files": ["*.ts"],
+      "files": [
+        "*.ts"
+      ],
       "parserOptions": {
-        "project": ["tsconfig.json"],
+        "project": [
+          "tsconfig.json"
+        ],
         "createDefaultProgram": true
       },
       "extends": [
@@ -39,7 +44,12 @@
             "ignoreCase": false,
             "ignoreDeclarationSort": true,
             "ignoreMemberSort": true,
-            "memberSyntaxSortOrder": ["none", "all", "multiple", "single"],
+            "memberSyntaxSortOrder": [
+              "none",
+              "all",
+              "multiple",
+              "single"
+            ],
             "allowSeparatedGroups": false
           }
         ],
@@ -49,22 +59,37 @@
       },
       "overrides": [
         {
-          "files": ["*.ts", "*.mts", "*.cts", "*.tsx"],
+          "files": [
+            "*.ts",
+            "*.mts",
+            "*.cts",
+            "*.tsx"
+          ],
           "rules": {
-            "@typescript-eslint/explicit-function-return-type": "warn"
+            "@typescript-eslint/explicit-function-return-type": "error"
           }
         }
       ]
     },
     {
-      "files": ["*.html"],
-      "extends": ["plugin:@angular-eslint/template/recommended"],
+      "files": [
+        "*.html"
+      ],
+      "extends": [
+        "plugin:@angular-eslint/template/recommended"
+      ],
       "rules": {}
     },
     {
-      "files": ["*.html"],
-      "excludedFiles": ["*inline-template-*.component.html"],
-      "extends": ["plugin:prettier/recommended"],
+      "files": [
+        "*.html"
+      ],
+      "excludedFiles": [
+        "*inline-template-*.component.html"
+      ],
+      "extends": [
+        "plugin:prettier/recommended"
+      ],
       "rules": {
         "prettier/prettier": [
           "warn",
