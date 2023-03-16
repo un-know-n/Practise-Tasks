@@ -1,39 +1,21 @@
 import { Injectable } from '@angular/core';
 import {
-  BehaviorSubject,
+  delay,
   filter,
   fromEvent,
   iif,
-  interval,
   map,
   merge,
   Observable,
   of,
   switchMap,
   takeUntil,
-  tap,
+  timeInterval,
   timer,
 } from 'rxjs';
 
 @Injectable()
 export class PollingService {
-  private timeFromActive$ = new BehaviorSubject<number>(0);
-  private timer$ = this.checkTabActivity()
-    .pipe(
-      filter((value) => value),
-      map(() => 0),
-      switchMap(() =>
-        interval(1000).pipe(
-          tap(() => {
-            if (this.timeFromActive$.value) this.timeFromActive$.next(0);
-          }),
-          map((value) => this.timeFromActive$.next(value)),
-          takeUntil(fromEvent(document, 'visibilitychange')),
-        ),
-      ),
-    )
-    .subscribe();
-
   checkNetworkStatus(): Observable<boolean> {
     return merge(
       of(null),
@@ -48,20 +30,28 @@ export class PollingService {
     );
   }
 
-  pollData(delay = 10): Observable<any> {
-    const delayInMilliseconds = Number((delay * 1000).toFixed(0));
-    const visibility$ = fromEvent(document, 'visibilitychange');
+  pollData(repeatInMilliseconds = 10000): Observable<any> {
     return this.checkNetworkStatus().pipe(
-      switchMap(() => this.checkTabActivity().pipe(filter((value) => !value))),
       switchMap(() =>
+        this.checkTabActivity().pipe(
+          timeInterval(),
+          filter((value) => !value.value),
+        ),
+      ),
+      switchMap(({ interval }) =>
         iif(
-          () => this.timeFromActive$.value < delay,
-          timer(delay - this.timeFromActive$.value).pipe(
+          () => interval < repeatInMilliseconds,
+          of(null).pipe(
+            delay(repeatInMilliseconds - interval),
             switchMap(() =>
-              interval(delayInMilliseconds).pipe(takeUntil(visibility$)),
+              timer(0, repeatInMilliseconds).pipe(
+                takeUntil(fromEvent(document, 'visibilitychange')),
+              ),
             ),
           ),
-          timer(0, delayInMilliseconds).pipe(takeUntil(visibility$)),
+          timer(0, repeatInMilliseconds).pipe(
+            takeUntil(fromEvent(document, 'visibilitychange')),
+          ),
         ),
       ),
     );

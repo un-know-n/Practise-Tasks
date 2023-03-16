@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.pollingService.pollData(10).subscribe((value) => {
+    this.pollingService.pollData(10000).subscribe((value) => {
       console.log(`emit ${value}`, `Seconds: ${new Date().getSeconds()}`);
       //this.posts$ = this.dataService.getPosts();
     });
