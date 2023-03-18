@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from './services/data.service';
 import { PollingService } from './services/polling.service';
+import { timeInterval } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -16,9 +17,15 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.pollingService.pollData(10000).subscribe((value) => {
-      console.log(`emit ${value}`, `Seconds: ${new Date().getSeconds()}`);
-      //this.posts$ = this.dataService.getPosts();
-    });
+    this.pollingService
+      .pollData()
+      .pipe(timeInterval())
+      .subscribe(({ value, interval }) => {
+        console.log(
+          `Emit #${value}`,
+          ' || ',
+          `From last emit: ${(interval / 1000).toFixed(0)} s.`,
+        );
+      });
   }
 }

@@ -30,8 +30,9 @@ export class PollingService {
     );
   }
 
-  pollData(repeatInMilliseconds = 10000): Observable<any> {
+  pollData(repeatInMilliseconds = 10000): Observable<number> {
     return this.checkNetworkStatus().pipe(
+      filter((conn) => conn),
       switchMap(() =>
         this.checkTabActivity().pipe(
           timeInterval(),
@@ -43,14 +44,15 @@ export class PollingService {
           () => interval < repeatInMilliseconds,
           of(null).pipe(
             delay(repeatInMilliseconds - interval),
-            switchMap(() =>
-              timer(0, repeatInMilliseconds).pipe(
-                takeUntil(fromEvent(document, 'visibilitychange')),
-              ),
-            ),
+            switchMap(() => timer(0, repeatInMilliseconds)),
           ),
-          timer(0, repeatInMilliseconds).pipe(
-            takeUntil(fromEvent(document, 'visibilitychange')),
+          timer(0, repeatInMilliseconds),
+        ).pipe(
+          takeUntil(
+            merge(
+              fromEvent(window, 'offline'),
+              fromEvent(document, 'visibilitychange'),
+            ),
           ),
         ),
       ),
