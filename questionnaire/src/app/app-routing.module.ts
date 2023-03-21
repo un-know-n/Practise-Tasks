@@ -1,32 +1,44 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [
+export const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./question-management/question-management.module').then(m => m.QuestionManagementModule)
+    loadChildren: () =>
+      import('./question-management/question-management.module').then(
+        (m) => m.QuestionManagementModule,
+      ),
   },
   {
     path: 'create',
-    loadChildren: () => import('./moderate-question/moderate-question.module').then(m => m.ModerateQuestionModule)
+    loadChildren: () =>
+      import('./create-question/create-question.module').then(
+        (m) => m.CreateQuestionModule,
+      ),
   },
   {
     path: 'edit/:id',
-    loadChildren: () => import('./moderate-question/moderate-question.module').then(m => m.ModerateQuestionModule)
+    loadChildren: () =>
+      import('./edit-question/edit-question.module').then(
+        (m) => m.EditQuestionModule,
+      ),
   },
   {
     path: 'list',
-    loadChildren: () => import('./questions-list/questions-list.module').then(m => m.QuestionsListModule)
+    loadChildren: () =>
+      import('./questions-list/questions-list.module').then(
+        (m) => m.QuestionsListModule,
+      ),
   },
   {
     path: '**',
     pathMatch: 'full',
-    redirectTo: ''
-  }
+    redirectTo: '',
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

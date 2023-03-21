@@ -1,0 +1,3 @@
+<app-header [headerTitle]="'Edit question'" [includeBackButton]='true'>
+</app-header>
+<app-moderate-question (saveQuestion)='onSaveQuestion($event)' [question]='mockQuestion'></app-moderate-question>

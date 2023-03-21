@@ -1,0 +1,16 @@
+.options-form {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-items: center;
+
+  & > * {
+    width: 100%;
+  }
+
+  .mat-mdc-dialog-actions {
+    justify-content: end;
+  }
+}
+

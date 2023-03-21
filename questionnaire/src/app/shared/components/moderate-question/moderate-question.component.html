@@ -1,0 +1,67 @@
+<form (ngSubmit)='onSubmit()' [formGroup]='questionForm' class='question-form'>
+  <div class='question-title'>
+    <h2 class='label'>Question title</h2>
+    <mat-form-field>
+      <mat-label>Enter question title here</mat-label>
+      <textarea formControlName='title' matInput placeholder='Ex. Who is the best Angular developer?'></textarea>
+      <mat-error *ngIf="getFieldError('title')">
+        Title is required
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class='question-type'>
+    <h2 class='label'>Question type</h2>
+    <mat-radio-group formControlName='type'>
+      <mat-radio-button
+        (change)='onOptionChange(item)'
+        *ngFor='let item of availableTypes'
+        [name]='item'
+        [value]='item'>
+        {{ item | titlecase }}
+      </mat-radio-button>
+    </mat-radio-group>
+  </div>
+  <div
+    *ngIf="questionForm.controls['options']"
+    formArrayName='options'
+  >
+    <h2 class='label'>Add answer options(at least two):</h2>
+    <button (click)='onAddOption()' mat-stroked-button type='button'>
+      Add option
+    </button>
+    <mat-error *ngIf="getFieldError('options')">
+      Need at least two options
+    </mat-error>
+    <ul class='options-list'>
+      <li *ngFor='let option of options.value; let i = index'>
+        <p>{{ option }}</p>
+        <button
+          (click)='onEditOption(i, option)'
+          color='accent'
+          mat-raised-button
+          type='button'>
+          Edit
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button
+          (click)='onDeleteOption(i)'
+          color='warn'
+          mat-stroked-button
+          type='button'>
+          Delete
+          <mat-icon>delete</mat-icon>
+        </button>
+      </li>
+    </ul>
+
+  </div>
+
+  <button
+    [disabled]='!questionForm.valid'
+    class='submit'
+    color='primary'
+    mat-raised-button
+    type='submit'>
+    Save question
+  </button>
+</form>
