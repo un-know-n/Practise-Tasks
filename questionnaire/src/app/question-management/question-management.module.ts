@@ -4,6 +4,8 @@ import { QuestionManagementComponent } from './question-management.component';
 import { RouterModule, Routes } from '@angular/router';
 import { HeaderComponent } from '../shared/components/header/header.component';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 
 const routes: Routes = [
   {
@@ -19,6 +21,8 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     HeaderComponent,
     MatButtonModule,
+    MatCardModule,
+    MatIconModule,
   ],
   exports: [RouterModule],
 })

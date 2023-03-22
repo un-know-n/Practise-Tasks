@@ -125,7 +125,7 @@ export class ModerateQuestionComponent implements OnInit {
     if (this.questionForm.valid)
       this.saveQuestion.emit({
         id: this.question?.id || nanoid(),
-        options: this.options.value,
+        options: this.options?.value || undefined,
         answer: null,
         type: this.questionForm.controls['type'].value,
         title: this.questionForm.controls['title'].value,

@@ -29,7 +29,6 @@ import { MatButtonModule } from '@angular/material/button';
     MatInputModule,
     MatRippleModule,
     MatIconModule,
-    MatFormFieldModule,
     MatButtonModule,
     MatDialogModule,
   ],

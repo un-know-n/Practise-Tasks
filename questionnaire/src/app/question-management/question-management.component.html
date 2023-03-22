@@ -1,3 +1,27 @@
 <app-header [headerTitle]="'Question management'">
   <a color='primary' mat-raised-button routerLink='list'>View Lists</a>
 </app-header>
+<a class='add-question' color='primary' mat-stroked-button routerLink='/create'>Add question</a>
+<div *ngIf='questions$ | async as questions' class='questions-wrapper'>
+  <ng-container *ngIf='questions.length'>
+    <mat-card *ngFor='let question of questions'>
+      <mat-card-header>
+        <mat-card-title>{{question.title}}</mat-card-title>
+        <mat-card-subtitle>Type: {{question.type}}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Created/modified at: {{question.createdAt}}</p>
+      </mat-card-content>
+      <mat-card-actions align='end'>
+        <a [routerLink]='"/edit/" + question.id' color='accent' mat-stroked-button>
+          <mat-icon>edit</mat-icon>
+          Edit</a>
+        <button (click)='onDeleteQuestion(question.id, question.title)' color='warn' mat-raised-button>
+          <mat-icon>delete</mat-icon>
+          Delete
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </ng-container>
+
+</div>
