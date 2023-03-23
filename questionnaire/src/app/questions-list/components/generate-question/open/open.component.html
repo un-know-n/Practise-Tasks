@@ -1,0 +1,50 @@
+<ng-container *ngIf='disabled; else enabled'>
+  <p>{{ question?.title }}</p>
+  <input
+    [value]='question?.options?.[0]'
+    disabled
+    matInput
+    type='text' />
+
+  <button
+    (click)='listService.onRevert(question.id)'
+    color='primary'
+    mat-raised-button
+    type='submit'>
+    Revert
+  </button>
+</ng-container>
+
+<!--OTHER STATE-->
+
+<ng-template #enabled>
+  <form
+    (ngSubmit)='onSubmit()'
+    [formGroup]='openForm'
+    class='hobby-form'
+  >
+    <p>{{question?.title}}</p>
+
+    <mat-form-field>
+      <mat-label>Your answer here...</mat-label>
+      <input
+        formControlName='value'
+        matInput
+        type='text' />
+      <mat-error *ngIf="openForm.touched && openForm.get('value')?.hasError('required')">
+        Answer is required
+      </mat-error>
+      <mat-error *ngIf=" openForm.touched && openForm.get('value')?.hasError('maxlength')">
+        Max length is 255 symbols
+      </mat-error>
+    </mat-form-field>
+
+    <button
+      color='primary'
+      mat-raised-button
+      type='submit'>
+      Answer
+    </button>
+  </form>
+</ng-template>
+

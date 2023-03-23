@@ -67,7 +67,11 @@ export class ModerateQuestionComponent implements OnInit {
     else this.createQuestionForm('', this.availableTypes[0], []);
   }
 
-  createQuestionForm(title: string, type: TQuestionType, options: string[]) {
+  createQuestionForm(
+    title: string,
+    type: TQuestionType,
+    options: string[],
+  ): void {
     this.questionForm = this.fb.group({
       title: [title, Validators.required],
       type: [type, Validators.required],
@@ -80,7 +84,7 @@ export class ModerateQuestionComponent implements OnInit {
     });
   }
 
-  onOptionChange(type: TQuestionType) {
+  onOptionChange(type: TQuestionType): void {
     const optionsControl = this.options;
     if (!MULTIANSWER_QUESTION_TYPES.includes(type))
       this.questionForm.removeControl('options');
@@ -91,11 +95,11 @@ export class ModerateQuestionComponent implements OnInit {
       );
   }
 
-  onDeleteOption(index: number) {
+  onDeleteOption(index: number): void {
     this.options.removeAt(index);
   }
 
-  onEditOption(index: number, value: string) {
+  onEditOption(index: number, value: string): void {
     this.dialog
       .open(OptionsDialogueComponent, {
         data: { title: 'Edit answer option', optionValue: value },
@@ -106,7 +110,7 @@ export class ModerateQuestionComponent implements OnInit {
       });
   }
 
-  onAddOption() {
+  onAddOption(): void {
     this.dialog
       .open(OptionsDialogueComponent, {
         data: { title: 'Add answer option', optionValue: '' },
@@ -117,11 +121,11 @@ export class ModerateQuestionComponent implements OnInit {
       });
   }
 
-  getFieldError(controlName: string, error = 'required') {
+  getFieldError(controlName: string, error = 'required'): boolean {
     return this.questionForm.controls[controlName].hasError(error);
   }
 
-  onSubmit() {
+  onSubmit(): void {
     if (this.questionForm.valid)
       this.saveQuestion.emit({
         id: this.question?.id || nanoid(),

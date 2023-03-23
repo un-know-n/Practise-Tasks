@@ -1,6 +1,7 @@
 import { IQuestion } from '../../models/questions';
 import { createReducer, on } from '@ngrx/store';
 import { QuestionsActions } from './questions.actions';
+import { mockQuestions } from '../../data/mock-questions';
 
 export interface IQuestionsState {
   questions: IQuestion[];
@@ -8,7 +9,7 @@ export interface IQuestionsState {
 }
 
 const initialState: IQuestionsState = {
-  questions: [],
+  questions: [...mockQuestions],
   answeredQuestions: [],
 };
 
