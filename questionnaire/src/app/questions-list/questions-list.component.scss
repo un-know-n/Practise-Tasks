@@ -1,8 +1,17 @@
 .list-wrapper {
   width: 100%;
-  height: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
   justify-items: center;
   align-items: start;
+
+  h3 {
+    margin: 20px 0;
+    text-align: center;
+    font-weight: bold;
+  }
+}
+
+.list-item {
+  margin-top: 20px;
 }

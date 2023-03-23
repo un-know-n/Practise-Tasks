@@ -6,6 +6,7 @@ import { HeaderComponent } from '../shared/components/header/header.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { SharedModule } from '../shared/shared.module';
 
 const routes: Routes = [
   {
@@ -23,6 +24,7 @@ const routes: Routes = [
     MatButtonModule,
     MatCardModule,
     MatIconModule,
+    SharedModule,
   ],
   exports: [RouterModule],
 })

@@ -1,18 +1,27 @@
-<app-header [headerTitle]="'List of questions'" [includeBackButton]='true'></app-header>
+<app-header
+  [headerTitle]="'List of questions'"
+  [includeBackButton]='true'></app-header>
 <ng-container *ngIf='{answeredQuestions: answeredQuestions$ | async, questions: questions$ | async} as questionsList'>
   <div *ngIf='questionsList.questions?.length'
        class='list-wrapper'>
     <div class='answered'>
-      <ng-container *ngFor='let question of questionsList.questions'>
-        <app-generate-question *ngIf='!questionsList.answeredQuestions?.includes(question.id)'
-                               [question]='question'></app-generate-question>
-      </ng-container>
+      <h3>Answered questions</h3>
+      <div class='list'>
+        <ng-container *ngFor='let question of questionsList.questions'>
+          <app-generate-question *ngIf='!questionsList.answeredQuestions?.includes(question.id)'
+                                 [question]='question'></app-generate-question>
+        </ng-container>
+      </div>
     </div>
     <div class='unanswered'>
-      <ng-container *ngFor='let question of questionsList.questions'>
-        <app-generate-question *ngIf='questionsList.answeredQuestions?.includes(question.id)' [disabled]='true'
-                               [question]='question'></app-generate-question>
-      </ng-container>
+      <h3>Unanswered questions</h3>
+      <div class='list'>
+        <ng-container *ngFor='let question of questionsList.questions'>
+          <app-generate-question *ngIf='questionsList.answeredQuestions?.includes(question.id)' [disabled]='true'
+                                 [question]='question' class='list-item'></app-generate-question>
+        </ng-container>
+
+      </div>
     </div>
   </div>
 </ng-container>

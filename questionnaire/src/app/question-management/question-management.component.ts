@@ -16,7 +16,7 @@ export class QuestionManagementComponent {
 
   constructor(private store: Store<AppStore>, private dialog: MatDialog) {}
 
-  onDeleteQuestion(id: string, title: string) {
+  onDeleteQuestion(id: string, title: string): void {
     this.dialog
       .open(ConfirmDialogueComponent, {
         data: { questionTitle: title },

@@ -1,18 +1,26 @@
 <ng-container *ngIf='disabled; else enabled'>
-  <p>{{ question?.title }}</p>
-  <input
-    [value]='question?.options?.[0]'
-    disabled
-    matInput
-    type='text' />
+  <div class='wrapper'>
+    <h2>{{ question?.title }}</h2>
 
-  <button
-    (click)='listService.onRevert(question.id)'
-    color='primary'
-    mat-raised-button
-    type='submit'>
-    Revert
-  </button>
+
+    <mat-form-field appearance='fill'>
+      <mat-label>Your answer</mat-label>
+      <textarea #autosize='cdkTextareaAutosize'
+                cdkAutosizeMaxRows='5'
+                cdkAutosizeMinRows='1'
+                cdkTextareaAutosize
+                matInput readonly>{{ question?.answer }}</textarea>
+    </mat-form-field>
+
+    <button
+      (click)='listService.onRevert(question.id)'
+      color='primary'
+      mat-raised-button
+      type='submit'>
+      Revert
+    </button>
+
+  </div>
 </ng-container>
 
 <!--OTHER STATE-->
@@ -21,16 +29,16 @@
   <form
     (ngSubmit)='onSubmit()'
     [formGroup]='openForm'
-    class='hobby-form'
+    class='wrapper'
   >
-    <p>{{question?.title}}</p>
+    <h2>{{question.title}}</h2>
 
     <mat-form-field>
       <mat-label>Your answer here...</mat-label>
-      <input
+      <textarea
         formControlName='value'
         matInput
-        type='text' />
+        type='text'></textarea>
       <mat-error *ngIf="openForm.touched && openForm.get('value')?.hasError('required')">
         Answer is required
       </mat-error>
