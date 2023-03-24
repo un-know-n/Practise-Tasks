@@ -1,33 +1,35 @@
 <form
-  (ngSubmit)='onSubmit()'
-  [formGroup]='optionForm'
-  class='options-form'
+  (ngSubmit)="onSubmit()"
+  [formGroup]="optionForm"
+  class="options-form"
   mat-dialog-content>
-  <p> {{ data.title || 'Configure option' }}</p>
+  <p>{{ data.title || 'Configure option' }}</p>
 
   <mat-form-field>
     <mat-label>Answer option</mat-label>
     <input
-      formControlName='option'
+      formControlName="option"
       matInput
-      type='text' />
+      type="text" />
     <mat-error *ngIf="optionForm.get('option')?.hasError('required')">
       Enter the answer option
     </mat-error>
   </mat-form-field>
 
-  <div class='form-buttons' mat-dialog-actions>
+  <div
+    class="form-buttons"
+    mat-dialog-actions>
     <button
-      (click)='onClose()'
+      (click)="onClose()"
       mat-raised-button
-      type='button'>
+      type="button">
       Cancel
     </button>
     <button
       cdkFocusInitial
-      color='primary'
+      color="primary"
       mat-raised-button
-      type='submit'>
+      type="submit">
       Save
     </button>
   </div>

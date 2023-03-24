@@ -11,12 +11,3 @@ export interface IQuestion {
   answer: string[] | null;
   createdAt: string;
 }
-
-export interface IFormQuestion {
-  type: string;
-  text: string;
-  options?: string[];
-  id: string;
-}
-
-export type TFormQuestionData = IQuestion | IFormQuestion;

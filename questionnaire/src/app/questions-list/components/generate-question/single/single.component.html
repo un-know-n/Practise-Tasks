@@ -1,46 +1,57 @@
-<ng-container *ngIf='disabled; else enabled'>
-  <div class='wrapper'>
-    <h2>{{question.title}}</h2>
+<ng-container *ngIf="disabled; else enabled">
+  <div class="wrapper">
+    <h2>{{ question.title }}</h2>
 
     <mat-radio-group>
-      <mat-radio-button *ngFor='let option of question?.options' [checked]='question?.answer?.includes(option)'
-                        [name]='option'
-                        [value]='option' disabled>{{option}}</mat-radio-button>
+      <mat-radio-button
+        *ngFor="let option of question?.options"
+        [checked]="question?.answer?.includes(option)"
+        [name]="option"
+        [value]="option"
+        disabled
+        >{{ option }}</mat-radio-button
+      >
     </mat-radio-group>
 
     <button
-      (click)='listService.onRevert(question.id)'
-      color='primary'
+      (click)="listService.onRevert(question.id)"
+      color="primary"
       mat-raised-button
-      type='submit'>
+      type="submit">
       Revert
     </button>
-
   </div>
 </ng-container>
 
 <!--OTHER STATE-->
 
 <ng-template #enabled>
-  <form (ngSubmit)='onSubmit()'
-        [formGroup]='singleForm'
-        class='wrapper'>
-    <h2>{{question?.title}}</h2>
+  <form
+    (ngSubmit)="onSubmit()"
+    [formGroup]="singleForm"
+    class="wrapper">
+    <h2>{{ question?.title }}</h2>
 
-    <mat-radio-group formControlName='value'>
-      <mat-radio-button *ngFor='let option of question?.options' [name]='option' [value]='option'
-      >{{option}}</mat-radio-button>
+    <mat-radio-group formControlName="value">
+      <mat-radio-button
+        *ngFor="let option of question?.options"
+        [name]="option"
+        [value]="option"
+        >{{ option }}</mat-radio-button
+      >
     </mat-radio-group>
 
-    <mat-error *ngIf='singleForm.touched && singleForm.get("value")?.hasError("required")'>
+    <mat-error
+      *ngIf="
+        singleForm.touched && singleForm.get('value')?.hasError('required')
+      ">
       Choose at least one answer
     </mat-error>
 
-
     <button
-      color='primary'
+      color="primary"
       mat-raised-button
-      type='submit'>
+      type="submit">
       Answer
     </button>
   </form>

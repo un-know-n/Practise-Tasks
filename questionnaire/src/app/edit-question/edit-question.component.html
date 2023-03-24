@@ -1,4 +1,8 @@
-<app-header [headerTitle]="'Edit question'" [includeBackButton]='true'>
+<app-header
+  headerTitle="Edit question"
+  [includeBackButton]="true">
 </app-header>
-<app-moderate-question (saveQuestion)='onSaveQuestion($event)' *ngIf='question$ | async as question'
-                       [question]='question'></app-moderate-question>
+<app-moderate-question
+  (saveQuestion)="onSaveQuestion($event)"
+  *ngIf="question$ | async as question"
+  [question]="question"></app-moderate-question>

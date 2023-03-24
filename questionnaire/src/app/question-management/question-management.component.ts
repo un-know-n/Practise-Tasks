@@ -5,6 +5,8 @@ import { AppStore } from '../shared/store/app.store';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogueComponent } from './components/confirm-dialogue/confirm-dialogue.component';
 import { QuestionsActions } from '../shared/store/questions/questions.actions';
+import { filter, take } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-question-management',
@@ -14,17 +16,28 @@ import { QuestionsActions } from '../shared/store/questions/questions.actions';
 export class QuestionManagementComponent {
   public questions$ = this.store.select(selectQuestions);
 
-  constructor(private store: Store<AppStore>, private dialog: MatDialog) {}
+  constructor(
+    private store: Store<AppStore>,
+    private dialog: MatDialog,
+    private router: Router,
+  ) {}
 
-  onDeleteQuestion(id: string, title: string): void {
+  onEdit(id: string): void {
+    this.router.navigate([`/edit/${id}`]);
+  }
+
+  onDelete(id: string, title: string): void {
     this.dialog
       .open(ConfirmDialogueComponent, {
         data: { questionTitle: title },
       })
       .afterClosed()
-      .subscribe((doDelete: boolean) => {
-        if (doDelete)
-          this.store.dispatch(QuestionsActions.deleteQuestion({ id }));
-      });
+      .pipe(
+        filter((doDelete) => doDelete),
+        take(1),
+      )
+      .subscribe(() =>
+        this.store.dispatch(QuestionsActions.deleteQuestion({ id })),
+      );
   }
 }

@@ -1,25 +1,27 @@
-<ng-container *ngIf='disabled; else enabled'>
-  <div class='wrapper'>
+<ng-container *ngIf="disabled; else enabled">
+  <div class="wrapper">
     <h2>{{ question?.title }}</h2>
 
-
-    <mat-form-field appearance='fill'>
+    <mat-form-field appearance="fill">
       <mat-label>Your answer</mat-label>
-      <textarea #autosize='cdkTextareaAutosize'
-                cdkAutosizeMaxRows='5'
-                cdkAutosizeMinRows='1'
-                cdkTextareaAutosize
-                matInput readonly>{{ question?.answer }}</textarea>
+      <textarea
+        #autosize="cdkTextareaAutosize"
+        cdkAutosizeMaxRows="5"
+        cdkAutosizeMinRows="1"
+        cdkTextareaAutosize
+        matInput
+        readonly
+        >{{ question?.answer }}</textarea
+      >
     </mat-form-field>
 
     <button
-      (click)='listService.onRevert(question.id)'
-      color='primary'
+      (click)="listService.onRevert(question.id)"
+      color="primary"
       mat-raised-button
-      type='submit'>
+      type="submit">
       Revert
     </button>
-
   </div>
 </ng-container>
 
@@ -27,32 +29,34 @@
 
 <ng-template #enabled>
   <form
-    (ngSubmit)='onSubmit()'
-    [formGroup]='openForm'
-    class='wrapper'
-  >
-    <h2>{{question.title}}</h2>
+    (ngSubmit)="onSubmit()"
+    [formGroup]="openForm"
+    class="wrapper">
+    <h2>{{ question.title }}</h2>
 
     <mat-form-field>
       <mat-label>Your answer here...</mat-label>
       <textarea
-        formControlName='value'
+        formControlName="value"
         matInput
-        type='text'></textarea>
-      <mat-error *ngIf="openForm.touched && openForm.get('value')?.hasError('required')">
+        type="text"></textarea>
+      <mat-error
+        *ngIf="openForm.touched && openForm.get('value')?.hasError('required')">
         Answer is required
       </mat-error>
-      <mat-error *ngIf=" openForm.touched && openForm.get('value')?.hasError('maxlength')">
+      <mat-error
+        *ngIf="
+          openForm.touched && openForm.get('value')?.hasError('maxlength')
+        ">
         Max length is 255 symbols
       </mat-error>
     </mat-form-field>
 
     <button
-      color='primary'
+      color="primary"
       mat-raised-button
-      type='submit'>
+      type="submit">
       Answer
     </button>
   </form>
 </ng-template>
-

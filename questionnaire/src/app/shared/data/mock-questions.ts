@@ -25,4 +25,3 @@ export const mockQuestions: IQuestion[] = [
     createdAt: 'Wed, 22 Mar 2023 17:56:11 GMT',
   },
 ];
-

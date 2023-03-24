@@ -1,41 +1,51 @@
-<ng-container *ngIf='disabled; else enabled'>
-  <div class='wrapper'>
-    <h2>{{question.title}}</h2>
+<ng-container *ngIf="disabled; else enabled">
+  <div class="wrapper">
+    <h2>{{ question.title }}</h2>
 
-    <mat-checkbox *ngFor='let option of question?.options' [checked]='question?.answer?.includes(option)'
-                  [name]='option' [value]='option' disabled>{{option}}</mat-checkbox>
+    <mat-checkbox
+      *ngFor="let option of question?.options"
+      [checked]="question?.answer?.includes(option)"
+      [name]="option"
+      [value]="option"
+      disabled
+      >{{ option }}</mat-checkbox
+    >
 
     <button
-      (click)='listService.onRevert(question.id)'
-      color='primary'
+      (click)="listService.onRevert(question.id)"
+      color="primary"
       mat-raised-button
-      type='submit'>
+      type="submit">
       Revert
     </button>
-
   </div>
 </ng-container>
 
 <!--OTHER STATE-->
 
 <ng-template #enabled>
-  <form (ngSubmit)='onSubmit()'
-        [formGroup]='multiForm'
-        class='wrapper'>
-    <h2>{{question?.title}}</h2>
+  <form
+    (ngSubmit)="onSubmit()"
+    [formGroup]="multiForm"
+    class="wrapper">
+    <h2>{{ question?.title }}</h2>
 
-    <mat-checkbox *ngFor='let option of question?.options' [formControlName]='option' [name]='option'
-                  [value]='option'>{{option}}</mat-checkbox>
+    <mat-checkbox
+      *ngFor="let option of question?.options"
+      [formControlName]="option"
+      [name]="option"
+      [value]="option"
+      >{{ option }}</mat-checkbox
+    >
 
-    <mat-error *ngIf='multiForm.touched && multiForm.errors'>
+    <mat-error *ngIf="multiForm.touched && multiForm.errors">
       Choose at least one answer
     </mat-error>
 
-
     <button
-      color='primary'
+      color="primary"
       mat-raised-button
-      type='submit'>
+      type="submit">
       Answer
     </button>
   </form>

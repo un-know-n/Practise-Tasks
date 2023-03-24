@@ -1,3 +1,6 @@
-<app-header [headerTitle]="'Create question'" [includeBackButton]='true'>
+<app-header
+  headerTitle="Create question"
+  [includeBackButton]="true">
 </app-header>
-<app-moderate-question (saveQuestion)='onSaveQuestion($event)'></app-moderate-question>
+<app-moderate-question
+  (saveQuestion)="onSaveQuestion($event)"></app-moderate-question>

@@ -8,6 +8,7 @@ export const routes: Routes = [
       import('./question-management/question-management.module').then(
         (m) => m.QuestionManagementModule,
       ),
+    pathMatch: 'full',
   },
   {
     path: 'create',
@@ -32,7 +33,6 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    pathMatch: 'full',
     redirectTo: '',
   },
 ];

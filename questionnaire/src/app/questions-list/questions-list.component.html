@@ -1,28 +1,35 @@
 <app-header
-  [headerTitle]="'List of questions'"
-  [includeBackButton]='true'></app-header>
-<ng-container *ngIf='{answeredQuestions: answeredQuestions$ | async, questions: questions$ | async} as questionsList'>
-  <div *ngIf='questionsList.questions?.length'
-       class='list-wrapper'>
-    <div class='answered'>
+  headerTitle="List of questions"
+  [includeBackButton]="true"></app-header>
+<ng-container
+  *ngIf="{
+    answeredQuestions: answeredQuestions$ | async,
+    questions: questions$ | async
+  } as questionsList">
+  <div
+    *ngIf="questionsList.questions?.length"
+    class="list-wrapper">
+    <div class="answered">
       <h3>Answered questions</h3>
-      <div class='list'>
-        <ng-container *ngFor='let question of questionsList.questions'>
-          <app-generate-question *ngIf='!questionsList.answeredQuestions?.includes(question.id)'
-                                 [question]='question'></app-generate-question>
+      <div class="list">
+        <ng-container *ngFor="let question of questionsList.questions">
+          <app-generate-question
+            *ngIf="!questionsList.answeredQuestions?.includes(question.id)"
+            [question]="question"></app-generate-question>
         </ng-container>
       </div>
     </div>
-    <div class='unanswered'>
+    <div class="unanswered">
       <h3>Unanswered questions</h3>
-      <div class='list'>
-        <ng-container *ngFor='let question of questionsList.questions'>
-          <app-generate-question *ngIf='questionsList.answeredQuestions?.includes(question.id)' [disabled]='true'
-                                 [question]='question' class='list-item'></app-generate-question>
+      <div class="list">
+        <ng-container *ngFor="let question of questionsList.questions">
+          <app-generate-question
+            *ngIf="questionsList.answeredQuestions?.includes(question.id)"
+            [disabled]="true"
+            [question]="question"
+            class="list-item"></app-generate-question>
         </ng-container>
-
       </div>
     </div>
   </div>
 </ng-container>
-
