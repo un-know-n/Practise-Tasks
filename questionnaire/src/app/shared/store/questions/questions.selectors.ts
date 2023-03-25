@@ -10,9 +10,16 @@ export const selectQuestions = createSelector(selectStore, (state) =>
   ),
 );
 
-export const selectAnsweredQuestions = createSelector(
-  selectStore,
-  (state) => state.answeredQuestions,
+export const selectAnsweredQuestions = createSelector(selectStore, (state) =>
+  state.questions.filter((question) =>
+    state.answeredQuestions.includes(question.id),
+  ),
+);
+
+export const selectUnansweredQuestions = createSelector(selectStore, (state) =>
+  state.questions.filter(
+    (question) => !state.answeredQuestions.includes(question.id),
+  ),
 );
 
 export const selectQuestionById = (id: string) =>

@@ -4,17 +4,16 @@
 <ng-container
   *ngIf="{
     answeredQuestions: answeredQuestions$ | async,
-    questions: questions$ | async
+    unansweredQuestions: unansweredQuestions$ | async
   } as questionsList">
   <div
-    *ngIf="questionsList.questions?.length"
+    *ngIf="questionsList.unansweredQuestions?.length || questionsList.answeredQuestions?.length"
     class="list-wrapper">
     <div class="answered">
       <h3>Answered questions</h3>
       <div class="list">
-        <ng-container *ngFor="let question of questionsList.questions">
+        <ng-container *ngFor="let question of questionsList.unansweredQuestions">
           <app-generate-question
-            *ngIf="!questionsList.answeredQuestions?.includes(question.id)"
             [question]="question"></app-generate-question>
         </ng-container>
       </div>
@@ -22,10 +21,8 @@
     <div class="unanswered">
       <h3>Unanswered questions</h3>
       <div class="list">
-        <ng-container *ngFor="let question of questionsList.questions">
+        <ng-container *ngFor="let question of questionsList.answeredQuestions">
           <app-generate-question
-            *ngIf="questionsList.answeredQuestions?.includes(question.id)"
-            [disabled]="true"
             [question]="question"
             class="list-item"></app-generate-question>
         </ng-container>

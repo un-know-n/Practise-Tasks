@@ -12,5 +12,4 @@ export type TOnRevert = (id: string) => void;
 })
 export class GenerateQuestionComponent {
   @Input() question!: IQuestion;
-  @Input() disabled = false;
 }

@@ -3,7 +3,7 @@ import { AppStore } from '../shared/store/app.store';
 import { Store } from '@ngrx/store';
 import {
   selectAnsweredQuestions,
-  selectQuestions,
+  selectUnansweredQuestions,
 } from '../shared/store/questions/questions.selectors';
 
 @Component({
@@ -12,7 +12,7 @@ import {
   styleUrls: ['./questions-list.component.scss'],
 })
 export class QuestionsListComponent {
-  public questions$ = this.store.select(selectQuestions);
+  public unansweredQuestions$ = this.store.select(selectUnansweredQuestions);
   public answeredQuestions$ = this.store.select(selectAnsweredQuestions);
 
   constructor(private store: Store<AppStore>) {}

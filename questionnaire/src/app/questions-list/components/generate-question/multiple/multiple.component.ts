@@ -1,37 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { IQuestion } from '../../../../shared/models/questions';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  ValidationErrors,
-} from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatRippleModule } from '@angular/material/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCheckboxModule } from '@angular/material/checkbox';
+import { FormBuilder, FormGroup, ValidationErrors } from '@angular/forms';
 import { ListService } from '../../../services/list.service';
 
 @Component({
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatFormFieldModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatRippleModule,
-    MatButtonModule,
-    MatCheckboxModule,
-  ],
   selector: 'app-multiple',
   templateUrl: './multiple.component.html',
   styleUrls: ['./multiple.component.scss'],
 })
 export class MultipleComponent implements OnInit {
   @Input() question!: IQuestion;
-  @Input() disabled = false;
   public multiForm!: FormGroup;
 
   constructor(private fb: FormBuilder, public listService: ListService) {}
@@ -43,11 +21,12 @@ export class MultipleComponent implements OnInit {
       },
       { validators: this.atLeastOneChecked },
     );
+    if (this.question.answer) this.multiForm.disable();
   }
 
   generateControls(options: string[]): object {
     return options.reduce((acc, option) => {
-      (acc as any)[option] = false;
+      (acc as any)[option] = this.question.answer?.includes(option);
       return acc;
     }, {});
   }
