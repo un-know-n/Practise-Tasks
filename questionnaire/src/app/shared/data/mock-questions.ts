@@ -7,7 +7,7 @@ export const mockQuestions: IQuestion[] = [
     answer: null,
     type: 'multiple',
     title: 'Multiple Question',
-    createdAt: 'Wed, 22 Mar 2023 19:56:11 GMT',
+    createdAt: '2023-03-25 17:28:13',
   },
   {
     id: '9z6FHObCDkfElqwfTFtn5',
@@ -15,13 +15,13 @@ export const mockQuestions: IQuestion[] = [
     answer: null,
     type: 'single',
     title: 'Single question',
-    createdAt: 'Wed, 22 Mar 2023 18:56:11 GMT',
+    createdAt: '2023-03-25 17:29:13',
   },
   {
     id: '9z6FHObCDkfElqwfTFtn6',
     answer: null,
     type: 'open',
     title: 'Open question',
-    createdAt: 'Wed, 22 Mar 2023 17:56:11 GMT',
+    createdAt: '2023-03-25 17:30:13',
   },
 ];

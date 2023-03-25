@@ -1,46 +1,30 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
+  AbstractControl,
   FormArray,
   FormBuilder,
   FormControl,
   FormGroup,
-  ReactiveFormsModule,
+  ValidationErrors,
+  ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
-import { MatRippleModule } from '@angular/material/core';
-import { MatIconModule } from '@angular/material/icon';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { MatButtonModule } from '@angular/material/button';
 import { IQuestion, TQuestionType } from '../../models/questions';
 import {
+  EMPTY_FIELDS,
   MULTIANSWER_QUESTION_TYPES,
   QUESTIONS_TYPES,
 } from '../../constants/questions';
-import { MatRadioModule } from '@angular/material/radio';
-import { CommonModule } from '@angular/common';
-import { OptionsDialogueComponent } from './options-dialogue/options-dialogue.component';
+
 import { nanoid } from 'nanoid';
 import * as dayjs from 'dayjs';
 import * as utc from 'dayjs/plugin/utc';
 
 dayjs.extend(utc);
 
+export const OPTIONS_CONTROL_NAME = 'options';
+
 @Component({
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatRippleModule,
-    MatIconModule,
-    MatFormFieldModule,
-    MatButtonModule,
-    MatDialogModule,
-    MatRadioModule,
-    OptionsDialogueComponent,
-  ],
   selector: 'app-moderate-question',
   templateUrl: './moderate-question.component.html',
   styleUrls: ['./moderate-question.component.scss'],
@@ -50,75 +34,47 @@ export class ModerateQuestionComponent implements OnInit {
   @Output() saveQuestion = new EventEmitter<IQuestion>();
   questionForm!: FormGroup;
   availableTypes = QUESTIONS_TYPES;
+  multipleTypes = MULTIANSWER_QUESTION_TYPES;
 
-  constructor(private dialog: MatDialog, private fb: FormBuilder) {}
-
-  get options(): FormArray<FormControl> {
-    return this.questionForm.get('options') as FormArray;
-  }
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
     if (this.question)
-      this.createQuestionForm(
-        this.question.title,
-        this.question.type,
-        this.question.options || [],
-      );
-    else this.createQuestionForm('', this.availableTypes[0], []);
+      this.createQuestionForm(this.question.title, this.question.type);
+    else this.createQuestionForm('', this.availableTypes[0]);
   }
 
-  createQuestionForm(
-    title: string,
-    type: TQuestionType,
-    options: string[],
-  ): void {
+  createQuestionForm(title: string, type: TQuestionType): void {
     this.questionForm = this.fb.group({
       title: [title, Validators.required],
       type: [type, Validators.required],
-      ...(MULTIANSWER_QUESTION_TYPES.includes(type) && {
-        options: this.fb.array(
-          [...options],
-          [Validators.required, Validators.minLength(2)],
-        ),
-      }),
     });
+    this.onOptionChange(type);
+    this.questionForm
+      .get('type')
+      ?.valueChanges.subscribe((value) => this.onOptionChange(value));
   }
 
   onOptionChange(type: TQuestionType): void {
     const optionsControl = this.options;
     if (!MULTIANSWER_QUESTION_TYPES.includes(type))
-      this.questionForm.removeControl('options');
-    else if (!optionsControl)
-      this.questionForm.setControl(
-        'options',
-        this.fb.array([], [Validators.required, Validators.minLength(2)]),
-      );
+      this.questionForm.removeControl(OPTIONS_CONTROL_NAME);
+    else if (!optionsControl) this.generateOptions();
   }
 
-  onDeleteOption(index: number): void {
-    this.options.removeAt(index);
+  generateOptions(): void {
+    const options = this.question?.options || EMPTY_FIELDS;
+    this.questionForm.addControl(
+      OPTIONS_CONTROL_NAME,
+      this.fb.control(options, [Validators.required, this.checkForEmptiness()]),
+    );
   }
 
-  onEditOption(index: number, value: string): void {
-    this.dialog
-      .open(OptionsDialogueComponent, {
-        data: { title: 'Edit answer option', optionValue: value },
-      })
-      .afterClosed()
-      .subscribe((option: string) => {
-        this.options.at(index).setValue(option);
-      });
-  }
-
-  onAddOption(): void {
-    this.dialog
-      .open(OptionsDialogueComponent, {
-        data: { title: 'Add answer option', optionValue: '' },
-      })
-      .afterClosed()
-      .subscribe((option: string) => {
-        this.options.push(this.fb.control(option, Validators.required));
-      });
+  checkForEmptiness(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const empty = control.value.includes('');
+      return empty ? { emptyField: { value: control.value } } : null;
+    };
   }
 
   getFieldError(controlName: string, error = 'required'): boolean {
@@ -133,7 +89,11 @@ export class ModerateQuestionComponent implements OnInit {
         answer: null,
         type: this.questionForm.controls['type'].value,
         title: this.questionForm.controls['title'].value,
-        createdAt: dayjs().utc(true).toString(),
+        createdAt: dayjs().format('YYYY-MM-DD HH:mm:ss'),
       });
+  }
+
+  get options(): FormArray<FormControl> {
+    return this.questionForm.get(OPTIONS_CONTROL_NAME) as FormArray;
   }
 }

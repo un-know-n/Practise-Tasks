@@ -7,6 +7,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { SharedModule } from '../shared/shared.module';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatRippleModule } from '@angular/material/core';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ConfirmDialogueComponent } from './components/confirm-dialogue/confirm-dialogue.component';
 
 const routes: Routes = [
   {
@@ -16,7 +20,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [QuestionManagementComponent],
+  declarations: [QuestionManagementComponent, ConfirmDialogueComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
@@ -25,6 +29,9 @@ const routes: Routes = [
     MatCardModule,
     MatIconModule,
     SharedModule,
+    ReactiveFormsModule,
+    MatRippleModule,
+    MatDialogModule,
   ],
   exports: [RouterModule],
 })

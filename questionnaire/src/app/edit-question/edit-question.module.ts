@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EditQuestionComponent } from './edit-question.component';
 import { RouterModule, Routes } from '@angular/router';
-import { ModerateQuestionComponent } from '../shared/components/moderate-question/moderate-question.component';
 import { HeaderComponent } from '../shared/components/header/header.component';
+import { ModerateQuestionModule } from '../shared/components/moderate-question/moderate-question.module';
 
 const routes: Routes = [
   {
@@ -17,8 +17,9 @@ const routes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    ModerateQuestionComponent,
+
     HeaderComponent,
+    ModerateQuestionModule,
   ],
   exports: [RouterModule],
 })

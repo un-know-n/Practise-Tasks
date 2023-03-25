@@ -1,8 +1,10 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import * as dayjs from 'dayjs';
 import * as relativeTime from 'dayjs/plugin/relativeTime';
+import * as utc from 'dayjs/plugin/utc';
 
 dayjs.extend(relativeTime);
+dayjs.extend(utc);
 
 @Pipe({
   name: 'formatDate',

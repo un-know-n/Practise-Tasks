@@ -15,7 +15,7 @@
     width: 100%;
 
     &-buttons {
-      a {
+      :first-child {
         margin-right: 10px;
       }
     }
