@@ -1,0 +1,22 @@
+<form
+  (ngSubmit)="onSubmit()"
+  [formGroup]="multiForm">
+  <mat-checkbox
+    *ngFor="let option of question?.options"
+    [formControlName]="option"
+    [name]="option"
+    [value]="option"
+    >{{ option }}</mat-checkbox
+  >
+
+  <mat-error *ngIf="multiForm.touched && multiForm.errors">
+    Choose at least one answer
+  </mat-error>
+  <button
+    *ngIf="!question.answer"
+    color="primary"
+    mat-raised-button
+    type="submit">
+    Answer
+  </button>
+</form>

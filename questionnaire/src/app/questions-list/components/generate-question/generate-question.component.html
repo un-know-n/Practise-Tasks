@@ -1,0 +1,17 @@
+<mat-card class="question">
+  <mat-card-content>
+    <ng-container [ngSwitch]="question.type">
+      <app-question-layout [question]="question">
+        <app-open
+          *ngSwitchCase="'open'"
+          [question]="question"></app-open>
+        <app-multiple
+          *ngSwitchCase="'multiple'"
+          [question]="question"></app-multiple>
+        <app-single
+          *ngSwitchCase="'single'"
+          [question]="question"></app-single>
+      </app-question-layout>
+    </ng-container>
+  </mat-card-content>
+</mat-card>

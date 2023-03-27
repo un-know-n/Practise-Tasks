@@ -1,0 +1,26 @@
+<form
+  (ngSubmit)="onSubmit()"
+  [formGroup]="openForm">
+  <mat-form-field>
+    <mat-label>Your answer here...</mat-label>
+    <textarea
+      formControlName="value"
+      matInput
+      type="text"></textarea>
+    <mat-error
+      *ngIf="openForm.touched && openForm.get('value')?.hasError('required')">
+      Answer is required
+    </mat-error>
+    <mat-error
+      *ngIf="openForm.touched && openForm.get('value')?.hasError('maxlength')">
+      Max length is 255 symbols
+    </mat-error>
+  </mat-form-field>
+  <button
+    *ngIf="!question.answer"
+    color="primary"
+    mat-raised-button
+    type="submit">
+    Answer
+  </button>
+</form>

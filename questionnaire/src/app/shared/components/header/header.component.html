@@ -1,0 +1,16 @@
+<mat-toolbar class="header">
+  <div class="back-button">
+    <a
+      *ngIf="includeBackButton"
+      mat-icon-button
+      routerLink="/">
+      <mat-icon>arrow_back</mat-icon>
+    </a>
+  </div>
+
+  <span>{{ headerTitle }}</span>
+
+  <div class="dynamic-content">
+    <ng-content></ng-content>
+  </div>
+</mat-toolbar>

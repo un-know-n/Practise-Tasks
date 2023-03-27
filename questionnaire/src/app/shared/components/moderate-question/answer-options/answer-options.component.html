@@ -1,0 +1,38 @@
+<form [formGroup]="optionsForm">
+  <div formArrayName="options">
+    <h2 class="label">Add at least two answer options:</h2>
+    <button
+      mat-flat-button
+      type="button"
+      (click)="onAddOption()">
+      Add option
+      <mat-icon class="plus">add</mat-icon>
+    </button>
+    <div>
+      <div *ngFor="let item of options.controls; let i = index">
+        <span>{{ i + 1 }}.</span>
+        <mat-form-field class="field">
+          <mat-label>Your option here...</mat-label>
+          <input
+            matInput
+            type="text"
+            [formControlName]="i" />
+          <mat-error *ngIf="item.hasError('required')">
+            Option is required
+          </mat-error>
+        </mat-form-field>
+
+        <button
+          mat-raised-button
+          *ngIf="i > 1"
+          class="remove"
+          type="button"
+          color="warn"
+          (click)="onDeleteOption(i)">
+          Delete
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

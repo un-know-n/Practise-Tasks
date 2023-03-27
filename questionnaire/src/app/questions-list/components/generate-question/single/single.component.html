@@ -1,0 +1,24 @@
+<form
+  (ngSubmit)="onSubmit()"
+  [formGroup]="singleForm">
+  <mat-radio-group formControlName="value">
+    <mat-radio-button
+      *ngFor="let option of question?.options"
+      [name]="option"
+      [value]="option"
+      >{{ option }}</mat-radio-button
+    >
+  </mat-radio-group>
+
+  <mat-error
+    *ngIf="singleForm.touched && singleForm.get('value')?.hasError('required')">
+    Choose at least one answer
+  </mat-error>
+  <button
+    *ngIf="!question.answer"
+    color="primary"
+    mat-raised-button
+    type="submit">
+    Answer
+  </button>
+</form>

@@ -1,0 +1,14 @@
+<div class="wrapper">
+  <h2>{{ question?.title }}</h2>
+
+  <ng-content></ng-content>
+
+  <button
+    *ngIf="question.answer"
+    (click)="listService.onRevert(question.id)"
+    color="primary"
+    mat-raised-button
+    type="button">
+    Revert
+  </button>
+</div>
