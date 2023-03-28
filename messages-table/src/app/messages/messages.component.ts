@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { NotificationsService } from '../shared/services/notifications.service';
+import { MatDialog } from '@angular/material/dialog';
+import { MessageDialogComponent } from './message-dialog/message-dialog.component';
 
 @Component({
   selector: 'app-messages',
@@ -7,9 +9,19 @@ import { NotificationsService } from '../shared/services/notifications.service';
   styleUrls: ['./messages.component.scss'],
 })
 export class MessagesComponent {
-  constructor(private notificationsService: NotificationsService) {}
+  constructor(
+    private notificationsService: NotificationsService,
+    public messageDialog: MatDialog,
+  ) {}
 
-  ngOnInit(): void {
-    this.notificationsService.open('Messages initialized');
+  openMessageDialog(): void {
+    const dialogRef = this.messageDialog.open(MessageDialogComponent);
+
+    dialogRef.afterClosed().subscribe((result) => console.log(result));
   }
+
+  //
+  // ngOnInit(): void {
+  //   this.notificationsService.open('Messages initialized');
+  // }
 }

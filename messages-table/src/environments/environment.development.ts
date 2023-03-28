@@ -6,4 +6,5 @@ export const environment = {
     apiKey: 'AIzaSyBRNBJ5sBteUAN702dIsLyd_s69Sv_jRf4',
     authDomain: 'messages-table.firebaseapp.com',
     messagingSenderId: '313277082324',
-  },};
+  },
+};

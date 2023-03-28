@@ -1,0 +1,50 @@
+<div class="dialog">
+  <div
+    mat-dialog-title
+    class="dialog-title">
+    <h1>Type your message</h1>
+    <button
+      mat-icon-button
+      cdkFocusInitial
+      (click)="onClose()">
+      <mat-icon>cancel</mat-icon>
+    </button>
+  </div>
+  <div
+    mat-dialog-content
+    class="dialog-content">
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input
+        matInput
+        [formControl]="name" />
+      <mat-error *ngIf="name.hasError('required')">Name is required</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Message</mat-label>
+      <textarea
+        matInput
+        [formControl]="message"></textarea>
+      <mat-error *ngIf="message.hasError('required')"
+        >Message is required</mat-error
+      >
+    </mat-form-field>
+  </div>
+  <div
+    mat-dialog-actions
+    class="dialog-actions">
+    <ng-container *ngIf="!isLoading; else loading">
+      <button
+        [disabled]="isLoading"
+        mat-raised-button
+        (click)="onSubmit()">
+        Submit <mat-icon>check_circle</mat-icon>
+      </button>
+    </ng-container>
+    <ng-template #loading>
+      <mat-spinner
+        strokeWidth="3"
+        diameter="20"></mat-spinner>
+    </ng-template>
+  </div>
+</div>

@@ -1,0 +1,35 @@
+.dialog {
+  width: 350px;
+
+  &-title {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 12px;
+
+    h1 {
+      margin: 0;
+      margin-right: auto;
+    }
+  }
+
+  &-content {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding-bottom: 0;
+
+    .mat-mdc-form-field {
+      width: 100%;
+    }
+  }
+
+  &-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
