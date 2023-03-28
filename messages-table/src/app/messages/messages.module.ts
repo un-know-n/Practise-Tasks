@@ -12,10 +12,14 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MessagesService } from './services/messages.service';
+import { EffectsModule } from '@ngrx/effects';
+import { MessagesEffects } from './store/messages.effects';
 
 @NgModule({
   declarations: [MessagesComponent, MessageDialogComponent],
   imports: [
+    EffectsModule.forFeature([MessagesEffects]),
     CommonModule,
     MessagesRoutingModule,
     ReactiveFormsModule,
@@ -27,6 +31,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatIconModule,
     MatProgressSpinnerModule,
   ],
+  providers: [MessagesService],
   exports: [MessagesComponent],
 })
 export class MessagesModule {}
