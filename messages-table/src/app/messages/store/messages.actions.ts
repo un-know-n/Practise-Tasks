@@ -6,8 +6,7 @@ export const MessagesActions = createActionGroup({
   events: {
     'Load Messages': emptyProps(),
     'Load Messages Success': props<{ messages: IMessage[] }>(),
-
-    'Write Message': emptyProps(),
-    'Write Message Success': props<{ message: IMessage[] }>(),
+    'Write Message': props<{ name: string; message: string }>(),
+    'Write Message Success': props<{ message: IMessage }>(),
   },
 });

@@ -7,7 +7,7 @@ import { MessageDialogComponent } from './message-dialog/message-dialog.componen
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTableModule } from '@angular/material/table';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
@@ -31,7 +31,13 @@ import { MessagesEffects } from './store/messages.effects';
     MatIconModule,
     MatProgressSpinnerModule,
   ],
-  providers: [MessagesService],
+  providers: [
+    {
+      provide: MatDialogRef,
+      useValue: {},
+    },
+    MessagesService,
+  ],
   exports: [MessagesComponent],
 })
 export class MessagesModule {}

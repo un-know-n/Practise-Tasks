@@ -33,9 +33,8 @@
   <div
     mat-dialog-actions
     class="dialog-actions">
-    <ng-container *ngIf="!isLoading; else loading">
+    <ng-container *ngIf="(isLoading | async) === false; else loading">
       <button
-        [disabled]="isLoading"
         mat-raised-button
         (click)="onSubmit()">
         Submit <mat-icon>check_circle</mat-icon>

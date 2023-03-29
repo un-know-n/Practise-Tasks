@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { NotificationsService } from '../shared/services/notifications.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MessageDialogComponent } from './message-dialog/message-dialog.component';
 import { AppStore } from '../app.store';
@@ -13,7 +12,6 @@ import { MessagesActions } from './store/messages.actions';
 })
 export class MessagesComponent {
   constructor(
-    private notificationsService: NotificationsService,
     public messageDialog: MatDialog,
     private store: Store<AppStore>,
   ) {}
@@ -24,7 +22,5 @@ export class MessagesComponent {
 
   ngOnInit(): void {
     this.store.dispatch(MessagesActions.loadMessages());
-    // this.notificationsService.open('Messages initialized');
-    // this.messagesService.getAllMessages();
   }
 }

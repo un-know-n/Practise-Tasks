@@ -6,8 +6,11 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { addDoc, collection, Firestore } from '@angular/fire/firestore';
-import { NotificationsService } from '../../shared/services/notifications.service';
+import { Firestore } from '@angular/fire/firestore';
+import { Store } from '@ngrx/store';
+import { AppStore } from '../../app.store';
+import { MessagesService } from '../services/messages.service';
+import { MessagesActions } from '../store/messages.actions';
 
 @Component({
   selector: 'app-message-dialog',
@@ -17,12 +20,13 @@ import { NotificationsService } from '../../shared/services/notifications.servic
 export class MessageDialogComponent {
   messageForm!: FormGroup;
   firestore: Firestore = inject(Firestore);
-  isLoading = false;
+  isLoading = this.messagesService.isWritingMessage;
 
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<MessageDialogComponent>,
-    private notificationsService: NotificationsService,
+    private messagesService: MessagesService,
+    private store: Store<AppStore>,
   ) {
     this.messageForm = this.fb.group({
       name: ['', Validators.required],
@@ -36,23 +40,12 @@ export class MessageDialogComponent {
 
   onSubmit(): void {
     if (!this.messageForm.valid) return;
-    this.isLoading = true;
-    addDoc(collection(this.firestore, 'messages'), {
-      name: this.name.value,
-      message: this.message.value,
-      createdAt: new Date(),
-    })
-      .then(() => {
-        this.dialogRef.close();
-        this.notificationsService.open('Message was successfully delivered!');
-        this.isLoading = false;
-      })
-      .catch(() => {
-        this.notificationsService.open(
-          'Something went wrong... Please, try again!',
-        );
-        this.isLoading = false;
-      });
+    this.store.dispatch(
+      MessagesActions.writeMessage({
+        name: this.name.value,
+        message: this.message.value,
+      }),
+    );
   }
 
   get name(): FormControl {

@@ -18,6 +18,6 @@ export const messagesReducer = createReducer(
   })),
   on(MessagesActions.writeMessageSuccess, (state, { message }) => ({
     ...state,
-    messages: [...state.messages, ...message],
+    messages: [message, ...state.messages],
   })),
 );
