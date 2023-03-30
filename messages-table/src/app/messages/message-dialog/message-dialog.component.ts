@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -6,7 +6,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Firestore } from '@angular/fire/firestore';
 import { Store } from '@ngrx/store';
 import { AppStore } from '../../app.store';
 import { MessagesService } from '../services/messages.service';
@@ -19,7 +18,6 @@ import { MessagesActions } from '../store/messages.actions';
 })
 export class MessageDialogComponent {
   messageForm!: FormGroup;
-  firestore: Firestore = inject(Firestore);
   isLoading = this.messagesService.isWritingMessage;
 
   constructor(

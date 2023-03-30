@@ -15,9 +15,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MessagesService } from './services/messages.service';
 import { EffectsModule } from '@ngrx/effects';
 import { MessagesEffects } from './store/messages.effects';
+import { FormatDatePipe } from './pipes/format-date.pipe';
 
 @NgModule({
-  declarations: [MessagesComponent, MessageDialogComponent],
+  declarations: [MessagesComponent, MessageDialogComponent, FormatDatePipe],
   imports: [
     EffectsModule.forFeature([MessagesEffects]),
     CommonModule,
