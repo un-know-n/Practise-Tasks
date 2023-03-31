@@ -1,0 +1,26 @@
+<mat-toolbar class="header">
+  <span>Messages</span>
+
+  <nav>
+    <ul>
+      <li>
+        <a
+          mat-button
+          routerLink="/"
+          routerLinkActive="active-link"
+          [routerLinkActiveOptions]="{ exact: true }"
+          >Home</a
+        >
+      </li>
+      <li>
+        <a
+          mat-raised-button
+          color="primary"
+          routerLink="/messages"
+          routerLinkActive="active-link"
+          >Messages</a
+        >
+      </li>
+    </ul>
+  </nav>
+</mat-toolbar>

@@ -1,1 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.mat-mdc-simple-snack-bar {
+  font-size: 1.2em;
+  color: white;
+}
